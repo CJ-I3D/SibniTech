@@ -1,153 +1,19 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cart — sibni</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<header class="nav">
-  <div class="wrap">
-    <a href="index.html" class="wordmark">sibni<span class="dot"></span></a>
-    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-    <nav class="nav-links">
-      <a href="products.html">Shop</a>
-      <a href="how-to.html">How it works</a>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a>
-    </nav>
-  </div>
-</header>
-
-<section class="section-tight">
-  <div class="wrap">
-    <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Your cart</h1>
-  </div>
-</section>
-
-<section class="section-tight">
-  <div class="wrap">
-    <div id="cart-root"></div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="wrap">
-    <div>
-      <div class="wordmark">sibni<span class="dot"></span></div>
-      <p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you fill in yourself — nothing is stored by us.</p>
-    </div>
-    <div>
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="product-lace.html">Lace &amp; Velcro Tag</a></li>
-        <li><a href="product-keychain.html">Keychain Tag</a></li>
-        <li><a href="product-carabiner.html">Carabiner Tag</a></li>
-        <li><a href="product-lanyard.html">Lanyard Tag</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Learn</h4>
-      <ul>
-        <li><a href="how-to.html">How it works</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Company</h4>
-      <ul>
-        <li><a href="about.html">About sibni</a></li>
-        <li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="wrap foot-note">
-    © 2026 sibni. All tags are written and locked entirely by the buyer — sibni never receives or stores what you write.
-  </div>
-</footer>
-
-<script src="js/products.js"></script>
-<script src="js/cart.js"></script>
-<script>
-  function productSlug(id){ return id.replace("-tag",""); }
-
-  function renderCart(){
-    const cart = getCart();
-    const root = document.getElementById("cart-root");
-    const ids = Object.keys(cart);
-
-    if (ids.length === 0){
-      root.innerHTML = `
-        <div class="empty-state">
-          <h3>Your cart is empty</h3>
-          <p>Nothing in here yet.</p>
-          <a href="products.html" class="btn btn-primary" style="margin-top:12px;">Shop tags</a>
-        </div>`;
-      return;
-    }
-
-    let itemsHtml = "";
-    ids.forEach(id => {
-      const p = PRODUCTS[id];
-      if (!p) return;
-      const qty = cart[id];
-      itemsHtml += `
-        <div class="cart-item">
-          <div class="thumb tint-${p.tint}">${productIcon(p.icon)}</div>
-          <div>
-            <h3 style="margin:0 0 4px;">${p.name}</h3>
-            <p style="margin:0; font-size:.9rem;">${money(p.price)} each</p>
-          </div>
-          <div class="qty-control">
-            <button type="button" data-action="dec" data-id="${id}" aria-label="Decrease quantity">–</button>
-            <input type="text" value="${qty}" data-qty="${id}" inputmode="numeric" aria-label="Quantity" style="width:32px;">
-            <button type="button" data-action="inc" data-id="${id}" aria-label="Increase quantity">+</button>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-family:var(--font-head); color:var(--signal); font-weight:600;">${money(p.price * qty)}</div>
-            <a href="#" class="remove-link" data-remove="${id}">Remove</a>
-          </div>
-        </div>`;
-    });
-
-    root.innerHTML = `
-      <div class="cart-page-grid">
-        <div>${itemsHtml}</div>
-        <div class="cart-summary">
-          <h3>Summary</h3>
-          <div class="row"><span>Subtotal</span><span>${money(cartTotal())}</span></div>
-          <div class="row" style="color:var(--text-dim); font-size:.9rem;"><span>Shipping</span><span>Calculated at checkout</span></div>
-          <hr class="divider" style="margin:14px 0;">
-          <a href="checkout.html" class="btn btn-primary btn-block">Checkout</a>
-        </div>
-      </div>`;
-
-    root.querySelectorAll("[data-action]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.dataset.id;
-        const cart = getCart();
-        const current = cart[id] || 1;
-        const next = btn.dataset.action === "inc" ? current + 1 : current - 1;
-        setQty(id, next);
-        renderCart();
-      });
-    });
-    root.querySelectorAll("[data-remove]").forEach(link => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeFromCart(link.dataset.remove);
-        renderCart();
-      });
-    });
-  }
-
-  renderCart();
-</script>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Cart — sibni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/sibni-update.css"></head>
+<body><header class="nav"><div class="wrap"><a href="index.html" class="wordmark">sibni<span class="dot"></span></a><button class="nav-toggle" aria-label="Toggle menu">☰</button><nav class="nav-links"><a href="products.html">Shop</a><a href="how-to.html">How it works</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a></nav></div></header>
+<section class="section-tight"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,2.8rem);">Your cart</h1></div></section>
+<section class="section-tight"><div class="wrap"><div id="cart-root"></div></div></section>
+<footer class="footer"><div class="wrap"><div><div class="wordmark">sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself — nothing is stored by us.</p></div><div><h4>Shop</h4><ul><li><a href="products.html">All tags</a></li><li><a href="product.html?id=custom">Custom tag</a></li></ul></div><div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div><div><h4>Company</h4><ul><li><a href="about.html">About sibni</a></li><li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li></ul></div></div><div class="wrap foot-note">© 2026 sibni. Your NFC content is written directly by you and is not sent to sibni.</div></footer>
+<script src="js/products.js"></script><script src="js/cart.js"></script><script>
+function renderCart(){
+ const cart=getCart(), root=document.getElementById("cart-root"), ids=Object.keys(cart);
+ if(!ids.length){root.innerHTML='<div class="empty-state"><h3>Your cart is empty</h3><p>Nothing in here yet.</p><a href="products.html" class="btn btn-primary" style="margin-top:12px;">Shop tags</a></div>';return;}
+ let items="";
+ ids.forEach(id=>{const p=PRODUCTS[id];if(!p)return;const qty=cart[id];items+=`<div class="cart-item"><div class="thumb tint-${p.tint}">${productIcon(p.icon)}</div><div><h3 style="margin:0 0 4px;">${p.name}</h3><p style="margin:0;font-size:.9rem;">${money(p.price)} each</p></div><div class="qty-control"><button type="button" data-action="dec" data-id="${id}">–</button><input type="text" value="${qty}" readonly style="width:32px;"><button type="button" data-action="inc" data-id="${id}">+</button></div><div style="text-align:right;"><div style="font-family:var(--font-head);color:var(--signal);font-weight:600;">${money(p.price*qty)}</div><a href="#" class="remove-link" data-remove="${id}">Remove</a></div></div>`});
+ root.innerHTML=`<div class="cart-page-grid"><div>${items}</div><div class="cart-summary"><h3>Summary</h3><div class="row"><span>Subtotal</span><span>${money(cartTotal())}</span></div><div class="row" style="color:var(--text-dim);font-size:.9rem;"><span>Shipping</span><span>Calculated at checkout</span></div><hr class="divider" style="margin:14px 0;"><a href="checkout.html" class="btn btn-primary btn-block">Checkout</a></div></div>`;
+ root.querySelectorAll("[data-action]").forEach(btn=>btn.addEventListener("click",()=>{const c=getCart(),n=(c[btn.dataset.id]||1)+(btn.dataset.action==="inc"?1:-1);setQty(btn.dataset.id,n);renderCart()}));
+ root.querySelectorAll("[data-remove]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();removeFromCart(a.dataset.remove);renderCart()}));
+}
+renderCart();
+</script></body></html>

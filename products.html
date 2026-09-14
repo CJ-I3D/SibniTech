@@ -4,89 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shop — sibni</title>
+<meta name="description" content="Choose your sibni emergency NFC tag shape and attachment style.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sibni-update.css">
 </head>
 <body>
+<header class="nav"><div class="wrap">
+<a href="index.html" class="wordmark">sibni<span class="dot"></span></a>
+<button class="nav-toggle" aria-label="Toggle menu">☰</button>
+<nav class="nav-links">
+<a href="products.html">Shop</a><a href="how-to.html">How it works</a><a href="about.html">About</a><a href="faq.html">FAQ</a>
+<a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a>
+</nav></div></header>
 
-<header class="nav">
-  <div class="wrap">
-    <a href="index.html" class="wordmark">sibni<span class="dot"></span></a>
-    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-    <nav class="nav-links">
-      <a href="products.html">Shop</a>
-      <a href="how-to.html">How it works</a>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a>
-    </nav>
-  </div>
-</header>
+<section class="section-tight"><div class="wrap">
+<h1 style="font-size:clamp(2rem,4vw,2.8rem);">Shop</h1>
+<p class="lede">Pick the shape that suits you. Every tag is made with <strong>HELP. SCAN NFC</strong> on the tag and can be set up by you using our simple guide.</p>
+</div></section>
 
-<section class="section-tight">
-  <div class="wrap">
-    <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Shop</h1>
-    <p class="lede">Every tag runs the same NTAG216 chip. The only real choice is how you want to carry it.</p>
-  </div>
-</section>
+<section class="section-tight"><div class="wrap">
+<div class="tag-grid" id="product-grid"></div>
+</div></section>
 
-<section class="section-tight">
-  <div class="wrap">
-    <div class="tag-grid" id="product-grid"></div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="wrap">
-    <div>
-      <div class="wordmark">sibni<span class="dot"></span></div>
-      <p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you fill in yourself — nothing is stored by us.</p>
-    </div>
-    <div>
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="product-lace.html">Lace &amp; Velcro Tag</a></li>
-        <li><a href="product-keychain.html">Keychain Tag</a></li>
-        <li><a href="product-carabiner.html">Carabiner Tag</a></li>
-        <li><a href="product-lanyard.html">Lanyard Tag</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Learn</h4>
-      <ul>
-        <li><a href="how-to.html">How it works</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Company</h4>
-      <ul>
-        <li><a href="about.html">About sibni</a></li>
-        <li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="wrap foot-note">
-    © 2026 sibni. All tags are written and locked entirely by the buyer — sibni never receives or stores what you write.
-  </div>
+<footer class="footer"><div class="wrap">
+<div><div class="wordmark">sibni<span class="dot"></span></div>
+<p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself — nothing is stored by us.</p></div>
+<div><h4>Shop</h4><ul id="footer-shop"></ul></div>
+<div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
+<div><h4>Company</h4><ul><li><a href="about.html">About sibni</a></li><li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li></ul></div>
+</div>
+<div class="wrap foot-note">© 2026 sibni. Your NFC content is written directly by you and is not sent to sibni.</div>
 </footer>
-
-<script src="js/products.js"></script>
-<script src="js/cart.js"></script>
+<script src="js/products.js"></script><script src="js/cart.js"></script>
 <script>
-  const grid = document.getElementById("product-grid");
-  Object.entries(PRODUCTS).forEach(([id, p]) => {
-    grid.innerHTML += `
-      <a class="tag-card" href="product-${id.replace('-tag','')}.html">
-        <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
-        <span class="chip tint-${p.tint}">${p.badge}</span>
-        <h3>${p.name}</h3>
-        <p style="margin:0;">${p.tagline}</p>
-        <span class="price">${money(p.price)}</span>
-      </a>`;
-  });
+const grid=document.getElementById("product-grid");
+Object.entries(CATALOG).forEach(([id,p])=>{
+  const prices=p.options.map(o=>o.price);
+  const priceText=prices.length>1 ? "From "+money(Math.min(...prices)) : money(prices[0]);
+  grid.innerHTML += `<a class="tag-card" href="product.html?id=${encodeURIComponent(id)}">
+    <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
+    <span class="chip tint-${p.tint}">${p.badge}</span>
+    <h3>${p.name}</h3><p style="margin:0;">${p.tagline}</p>
+    <span class="price">${priceText}</span>
+  </a>`;
+});
+const footer=document.getElementById("footer-shop");
+Object.entries(CATALOG).forEach(([id,p])=>{
+  footer.innerHTML += `<li><a href="product.html?id=${encodeURIComponent(id)}">${p.name}</a></li>`;
+});
 </script>
-</body>
-</html>
+</body></html>

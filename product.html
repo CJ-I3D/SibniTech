@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tag — sibni</title>
+<meta name="description" content="Choose your sibni emergency NFC tag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sibni-update.css">
+</head>
+<body>
+<header class="nav"><div class="wrap">
+<a href="index.html" class="wordmark">sibni<span class="dot"></span></a>
+<button class="nav-toggle" aria-label="Toggle menu">☰</button>
+<nav class="nav-links">
+<a href="products.html">Shop</a><a href="how-to.html">How it works</a><a href="about.html">About</a><a href="faq.html">FAQ</a>
+<a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a>
+</nav></div></header>
+
+<section class="section-tight"><div class="wrap product-detail">
+<div class="art-big tint-blue" id="product-art" aria-hidden="true"></div>
+<div>
+<span class="chip tint-blue" id="product-badge"></span>
+<h1 id="product-name" style="font-size:clamp(1.9rem,3.4vw,2.5rem); margin-top:10px;"></h1>
+<p class="lede" id="product-tagline"></p>
+<p class="product-price" id="product-price"></p>
+<p id="product-description"></p>
+
+<div id="options"></div>
+
+<ul class="spec-list">
+<li><span>Text on tag</span><span>HELP. SCAN NFC</span></li>
+<li><span>Material</span><span>3D-printed shell</span></li>
+<li><span>Attachment</span><span id="mount"></span></li>
+</ul>
+
+<div class="qty-row">
+<div class="qty-control"><button type="button" id="qty-minus">–</button><input type="text" id="qty-input" value="1" inputmode="numeric" aria-label="Quantity"><button type="button" id="qty-plus">+</button></div>
+<button class="btn btn-primary" id="add-btn">Add to cart</button>
+</div>
+
+<div class="callout">
+<h3>Ready to set up</h3>
+<p>Your tag is not sold as a blank, unused item. It arrives with <strong>HELP. SCAN NFC</strong> on it and includes an NFC chip ready for you to write your own link or information. Follow the <a href="how-to.html">how-to guide</a> to set it up.</p>
+</div>
+</div></div></section>
+
+<footer class="footer"><div class="wrap">
+<div><div class="wordmark">sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself — nothing is stored by us.</p></div>
+<div><h4>Shop</h4><ul><li><a href="products.html">All tags</a></li><li><a href="product.html?id=custom">Custom tag</a></li></ul></div>
+<div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
+<div><h4>Company</h4><ul><li><a href="about.html">About sibni</a></li><li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li></ul></div>
+</div>
+<div class="wrap foot-note">© 2026 sibni. Your NFC content is written directly by you and is not sent to sibni.</div>
+</footer>
+
+<script src="js/products.js"></script><script src="js/cart.js"></script>
+<script>
+const catalogId=new URLSearchParams(location.search).get("id") || "large-square";
+const product=CATALOG[catalogId] || CATALOG["large-square"];
+const nameEl=document.getElementById("product-name");
+const badgeEl=document.getElementById("product-badge");
+const taglineEl=document.getElementById("product-tagline");
+const priceEl=document.getElementById("product-price");
+const artEl=document.getElementById("product-art");
+const optionsEl=document.getElementById("options");
+const mountEl=document.getElementById("mount");
+document.title=product.name+" — sibni";
+nameEl.textContent=product.name;
+badgeEl.textContent=product.badge;
+badgeEl.className="chip tint-"+product.tint;
+taglineEl.textContent=product.tagline;
+artEl.className="art-big tint-"+product.tint;
+artEl.innerHTML=productIcon(product.icon);
+
+let selected=product.options[0];
+function renderOptions(){
+  if(product.options.length===1){
+    optionsEl.innerHTML="";
+  }else{
+    optionsEl.innerHTML=`<div class="product-option-group"><strong>Choose your attachment</strong><div class="product-options">
+      ${product.options.map((o,i)=>`<button type="button" class="product-option ${i===0?'selected':''}" data-option="${o.id}">
+        <span>${o.label}</span><span>${money(o.price)}</span>
+      </button>`).join("")}</div></div>`;
+    optionsEl.querySelectorAll("[data-option]").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        selected=product.options.find(o=>o.id===btn.dataset.option) || product.options[0];
+        optionsEl.querySelectorAll(".product-option").forEach(b=>b.classList.remove("selected"));
+        btn.classList.add("selected");
+        update();
+      });
+    });
+  }
+}
+function update(){
+  priceEl.textContent=money(selected.price);
+  mountEl.textContent=selected.mount;
+}
+renderOptions(); update();
+
+const qtyInput=document.getElementById("qty-input");
+document.getElementById("qty-minus").addEventListener("click",()=>qtyInput.value=Math.max(1,parseInt(qtyInput.value||"1")-1));
+document.getElementById("qty-plus").addEventListener("click",()=>qtyInput.value=parseInt(qtyInput.value||"1")+1);
+document.getElementById("add-btn").addEventListener("click",()=>{
+  addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")));
+  const btn=document.getElementById("add-btn"), original=btn.textContent;
+  btn.textContent="Added"; setTimeout(()=>btn.textContent=original,1200);
+});
+</script>
+</body></html>
