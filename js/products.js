@@ -7,175 +7,185 @@ const CATALOG = {
   "large-square": {
     name: "Large Square Tag",
     slug: "large-square",
-    tagline: 'Large square design with "HELP. SCAN NFC" text.',
+    tagline: "Large square design.",
+    description: 'A larger square tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "large-square",
     tint: "blue",
     badge: "Square",
     options: [
-      { id: "large-square-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only" },
-      { id: "large-square-carabiner", label: "With carabiner", price: 15.99, mount: "Aluminium carabiner" }
+      { id: "large-square-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "large-square-carabiner", label: "With carabiner", price: 15.99, mount: "PETG carabiner included" }
     ]
   },
   "small-square": {
     name: "Small Square Tag",
     slug: "small-square",
-    tagline: 'Small square design with "HELP. SCAN NFC" text.',
+    tagline: "Small square design.",
+    description: 'A compact square tag for keys, bags and everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "small-square",
     tint: "green",
     badge: "Square",
     options: [
-      { id: "small-square-no-carabiner", label: "Without carabiner", price: 10.99, mount: "Tag only" },
-      { id: "small-square-carabiner", label: "With carabiner", price: 13.99, mount: "Aluminium carabiner" }
+      { id: "small-square-no-carabiner", label: "Without carabiner", price: 10.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "small-square-carabiner", label: "With carabiner", price: 13.99, mount: "PETG carabiner included" }
     ]
   },
   "large-round": {
     name: "Large Round Tag",
     slug: "large-round",
-    tagline: 'Large round design with "HELP. SCAN NFC" text.',
+    tagline: "Large round design.",
+    description: 'A larger round tag with plenty of space while staying easy to carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "large-round",
     tint: "amber",
     badge: "Round",
     options: [
-      { id: "large-round-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only" },
-      { id: "large-round-carabiner", label: "With carabiner", price: 15.99, mount: "Aluminium carabiner" }
+      { id: "large-round-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "large-round-carabiner", label: "With carabiner", price: 15.99, mount: "PETG carabiner included" }
     ]
   },
   "small-round": {
     name: "Small Round Tag",
     slug: "small-round",
-    tagline: 'Small round design with "HELP. SCAN NFC" text.',
+    tagline: "Small round design.",
+    description: 'A compact round tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "small-round",
     tint: "violet",
     badge: "Round",
     options: [
-      { id: "small-round-no-carabiner", label: "Without carabiner", price: 10.99, mount: "Tag only" },
-      { id: "small-round-carabiner", label: "With carabiner", price: 13.99, mount: "Aluminium carabiner" }
+      { id: "small-round-no-carabiner", label: "Without carabiner", price: 10.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "small-round-carabiner", label: "With carabiner", price: 13.99, mount: "PETG carabiner included" }
     ]
   },
   "lace-car": {
     name: "Car Shoelace / Velcro Tag",
     slug: "lace-car",
     tagline: 'Car design for shoelaces or velcro.',
+    description: 'A car-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "car",
     tint: "blue",
     badge: "Shoelace / velcro",
     options: [
-      { id: "lace-car-shoelace", label: "Shoelace", price: 11.99, mount: "Shoelace mount" },
-      { id: "lace-car-velcro", label: "Velcro", price: 11.99, mount: "Velcro mount" }
+      { id: "lace-car", label: "Shoelace / velcro", price: 11.99, mount: "Shoelace / velcro attachment" }
     ]
   },
   "lace-duck": {
     name: "Duck Shoelace / Velcro Tag",
     slug: "lace-duck",
     tagline: 'Duck design for shoelaces or velcro.',
+    description: 'A duck-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "duck",
     tint: "amber",
     badge: "Shoelace / velcro",
     options: [
-      { id: "lace-duck-shoelace", label: "Shoelace", price: 11.99, mount: "Shoelace mount" },
-      { id: "lace-duck-velcro", label: "Velcro", price: 11.99, mount: "Velcro mount" }
+      { id: "lace-duck", label: "Shoelace / velcro", price: 11.99, mount: "Shoelace / velcro attachment" }
     ]
   },
   "lace-rocket": {
     name: "Rocket Shoelace / Velcro Tag",
     slug: "lace-rocket",
     tagline: 'Rocket design for shoelaces or velcro.',
+    description: 'A rocket-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "rocket",
     tint: "violet",
     badge: "Shoelace / velcro",
     options: [
-      { id: "lace-rocket-shoelace", label: "Shoelace", price: 11.99, mount: "Shoelace mount" },
-      { id: "lace-rocket-velcro", label: "Velcro", price: 11.99, mount: "Velcro mount" }
+      { id: "lace-rocket", label: "Shoelace / velcro", price: 11.99, mount: "Shoelace / velcro attachment" }
     ]
   },
   "lace-bowtie": {
     name: "Bowtie Shoelace / Velcro Tag",
     slug: "lace-bowtie",
     tagline: 'Bowtie design for shoelaces or velcro.',
+    description: 'A bowtie-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "bowtie",
     tint: "green",
     badge: "Shoelace / velcro",
     options: [
-      { id: "lace-bowtie-shoelace", label: "Shoelace", price: 11.99, mount: "Shoelace mount" },
-      { id: "lace-bowtie-velcro", label: "Velcro", price: 11.99, mount: "Velcro mount" }
+      { id: "lace-bowtie", label: "Shoelace / velcro", price: 11.99, mount: "Shoelace / velcro attachment" }
     ]
   },
   "lace-rectangle": {
     name: "Simple Rectangle Shoelace / Velcro Tag",
     slug: "lace-rectangle",
     tagline: 'Simple rectangle design for shoelaces or velcro.',
+    description: 'A simple rectangular tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "rectangle",
     tint: "blue",
     badge: "Shoelace / velcro",
     options: [
-      { id: "lace-rectangle-shoelace", label: "Shoelace", price: 10.99, mount: "Shoelace mount" },
-      { id: "lace-rectangle-velcro", label: "Velcro", price: 10.99, mount: "Velcro mount" }
+      { id: "lace-rectangle", label: "Shoelace / velcro", price: 10.99, mount: "Shoelace / velcro attachment" }
     ]
   },
   "flower": {
     name: "Flower Tag",
     slug: "flower",
-    tagline: 'Flower-shaped design with "HELP. SCAN NFC" text.',
+    tagline: "Flower-shaped design.",
+    description: 'A flower-shaped tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "flower",
     tint: "violet",
     badge: "Flower",
     options: [
-      { id: "flower-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only" },
-      { id: "flower-carabiner", label: "With carabiner", price: 15.99, mount: "Aluminium carabiner" }
+      { id: "flower-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "flower-carabiner", label: "With carabiner", price: 15.99, mount: "PETG carabiner included" }
     ]
   },
   "dog": {
     name: "Dog Tag",
     slug: "dog",
-    tagline: 'Dog-shaped design with "HELP. SCAN NFC" text.',
+    tagline: "Dog-shaped design.",
+    description: 'A dog-shaped tag for collars, bags and everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "dog",
     tint: "amber",
     badge: "Animal",
     options: [
-      { id: "dog-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only" },
-      { id: "dog-carabiner", label: "With carabiner", price: 16.99, mount: "Aluminium carabiner" }
+      { id: "dog-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "dog-carabiner", label: "With carabiner", price: 16.99, mount: "PETG carabiner included" }
     ]
   },
   "cat": {
     name: "Cat Tag",
     slug: "cat",
-    tagline: 'Cat-shaped design with "HELP. SCAN NFC" text.',
+    tagline: "Cat-shaped design.",
+    description: 'A cat-shaped tag for collars, bags and everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "cat",
     tint: "green",
     badge: "Animal",
     options: [
-      { id: "cat-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only" },
-      { id: "cat-carabiner", label: "With carabiner", price: 16.99, mount: "Aluminium carabiner" }
+      { id: "cat-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "cat-carabiner", label: "With carabiner", price: 16.99, mount: "PETG carabiner included" }
     ]
   },
   "car": {
     name: "Car Tag",
     slug: "car",
-    tagline: 'Car-shaped design with "HELP. SCAN NFC" text.',
+    tagline: "Car-shaped design.",
+    description: 'A car-shaped tag for keys, bags and other everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "car",
     tint: "blue",
     badge: "Shape",
     options: [
-      { id: "car-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only" },
-      { id: "car-carabiner", label: "With carabiner", price: 16.99, mount: "Aluminium carabiner" }
+      { id: "car-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "car-carabiner", label: "With carabiner", price: 16.99, mount: "PETG carabiner included" }
     ]
   },
   "plane": {
     name: "Plane Tag",
     slug: "plane",
-    tagline: 'Plane-shaped design with "HELP. SCAN NFC" text.',
+    tagline: "Plane-shaped design.",
+    description: 'A plane-shaped tag for keys, bags and other everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "plane",
     tint: "blue",
     badge: "Shape",
     options: [
-      { id: "plane-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only" },
-      { id: "plane-carabiner", label: "With carabiner", price: 16.99, mount: "Aluminium carabiner" }
+      { id: "plane-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — for your own keychain or lanyard" },
+      { id: "plane-carabiner", label: "With carabiner", price: 16.99, mount: "PETG carabiner included" }
     ]
   },
   "business-card": {
     name: "Business Card Tag",
     slug: "business-card",
-    tagline: "A very thin, wallet-friendly business-card shape.",
+    tagline: "A very thin business-card shape.",
+    description: 'An ultra-thin business-card shaped tag designed to slip into a wallet or card holder. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "business-card",
     tint: "green",
     badge: "Ultra thin",
@@ -186,7 +196,8 @@ const CATALOG = {
   "custom": {
     name: "Custom Tag",
     slug: "custom",
-    tagline: "A custom shape or size made to your specification.",
+    tagline: "A custom shape or size made to your specification. Tell us what you need through the online form.",
+    description: "Custom tags can be made around your required shape, size, attachment and other specifications. Use the online form to tell us what you need; the final marking can be discussed as part of the specification.",
     icon: "custom",
     tint: "violet",
     badge: "Made to spec",
@@ -205,6 +216,7 @@ Object.entries(CATALOG).forEach(([catalogId, product]) => {
       baseName: product.name,
       price: option.price,
       tagline: product.tagline,
+      description: product.description,
       icon: product.icon,
       tint: product.tint,
       badge: product.badge,
@@ -216,13 +228,10 @@ Object.entries(CATALOG).forEach(([catalogId, product]) => {
 
 function money(n){ return "€" + Number(n).toFixed(2); }
 
-function tagLabelSvg(){
-  return `<text x="50" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="currentColor">HELP. SCAN NFC</text>`;
-}
 
 function productIcon(kind){
   const stroke = 'stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
-  const label = tagLabelSvg();
+  const label = "";
   switch(kind){
     case "large-square":
       return `<svg viewBox="0 0 100 100" ${stroke}><rect x="12" y="12" width="76" height="76" rx="10"/><circle cx="76" cy="24" r="5"/>${label}</svg>`;
