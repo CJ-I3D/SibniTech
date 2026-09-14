@@ -37,6 +37,6 @@
 <div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
 <div><h4>Company</h4><ul><li><a href="about.html">About sibni</a></li><li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li></ul></div></div>
 <div class="wrap foot-note">© 2026 sibni. Your NFC content is written directly by you and is not sent to sibni.</div></footer>
-<script src="js/products.js"></script><script src="js/cart.js"></script>
+<script src="js/products.js"></script><script src="cart.js"></script>
 <script>const grid=document.getElementById("home-product-grid");Object.entries(CATALOG).slice(0,8).forEach(([id,p])=>{grid.innerHTML+=`<a class="tag-card" href="product.html?id=${encodeURIComponent(id)}"><div class="art tint-${p.tint}">${productIcon(p.icon)}</div><span class="chip tint-${p.tint}">${p.badge}</span><h3>${p.name}</h3><p style="margin:0;">${p.tagline}</p><span class="price">From ${money(Math.min(...p.options.map(o=>o.price)))}</span></a>`});</script>
 </body></html>

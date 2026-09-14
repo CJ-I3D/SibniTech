@@ -5,7 +5,7 @@
 <section class="section-tight"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,2.8rem);">Your cart</h1></div></section>
 <section class="section-tight"><div class="wrap"><div id="cart-root"></div></div></section>
 <footer class="footer"><div class="wrap"><div><div class="wordmark">sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself — nothing is stored by us.</p></div><div><h4>Shop</h4><ul><li><a href="products.html">All tags</a></li><li><a href="product.html?id=custom">Custom tag</a></li></ul></div><div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div><div><h4>Company</h4><ul><li><a href="about.html">About sibni</a></li><li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li></ul></div></div><div class="wrap foot-note">© 2026 sibni. Your NFC content is written directly by you and is not sent to sibni.</div></footer>
-<script src="js/products.js"></script><script src="js/cart.js"></script><script>
+<script src="js/products.js"></script><script src="cart.js"></script><script>
 function renderCart(){
  const cart=getCart(), root=document.getElementById("cart-root"), ids=Object.keys(cart);
  if(!ids.length){root.innerHTML='<div class="empty-state"><h3>Your cart is empty</h3><p>Nothing in here yet.</p><a href="products.html" class="btn btn-primary" style="margin-top:12px;">Shop tags</a></div>';return;}
