@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — sibni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">sibni<span class="dot"></span></a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="nav-links">
+      <a href="products.html">Shop</a>
+      <a href="how-to.html">How it works</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap" style="max-width:640px;">
+    <h1 style="font-size:clamp(1.9rem,3.5vw,2.4rem);">Checkout</h1>
+    <div class="cart-summary" style="position:static; margin-top:24px;">
+      <h3>Order summary</h3>
+      <div id="summary-rows"></div>
+      <hr class="divider" style="margin:14px 0;">
+      <div class="row"><strong>Total</strong><strong id="summary-total"></strong></div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <h3>Payment isn't wired up yet</h3>
+      <p>This build stops here on purpose — Stripe Checkout goes in next. When you're ready:</p>
+      <ul style="margin:12px 0 0; padding-left:20px;">
+        <li>Create a Stripe account and get your API keys</li>
+        <li>Add a small serverless function (Stripe requires this server-side step — it can't be done from static HTML alone) that creates a Checkout Session from the cart contents</li>
+        <li>Point the button below at that endpoint instead of this placeholder</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary btn-block" style="margin-top:20px;" disabled>Pay with Stripe (coming soon)</button>
+    <p style="text-align:center; margin-top:12px;"><a href="cart.html" style="color:var(--text-dim);">← Back to cart</a></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap foot-note">
+    © 2026 sibni.
+  </div>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script>
+  const cart = getCart();
+  const rows = document.getElementById("summary-rows");
+  Object.entries(cart).forEach(([id, qty]) => {
+    const p = PRODUCTS[id];
+    if (!p) return;
+    rows.innerHTML += `<div class="row"><span>${p.name} × ${qty}</span><span>${money(p.price * qty)}</span></div>`;
+  });
+  document.getElementById("summary-total").textContent = money(cartTotal());
+</script>
+</body>
+</html>

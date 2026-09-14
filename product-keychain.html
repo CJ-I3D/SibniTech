@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keychain Tag — sibni</title>
+<meta name="description" content="A compact NFC tag that rides on your keyring, always on you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">sibni<span class="dot"></span></a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="nav-links">
+      <a href="products.html">Shop</a>
+      <a href="how-to.html">How it works</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a>
+    </nav>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap product-detail">
+    <div class="art-big" aria-hidden="true">
+      <svg viewBox="0 0 100 100" width="220" height="220" stroke="currentColor" fill="none" stroke-width="1.2">
+        <circle cx="30" cy="50" r="14"/>
+        <path d="M44 50 H80 M68 50 V60 M76 50 V58"/>
+      </svg>
+    </div>
+    <div>
+      <h1 style="font-size:clamp(1.9rem,3.4vw,2.5rem);">Keychain Tag</h1>
+      <p class="lede">Rides on your keyring, always on you.</p>
+      <p style="font-family:var(--font-head); color:var(--signal); font-size:1.4rem; font-weight:600;">€12.99</p>
+      <p>A compact disc that lives on your keyring. If your keys are found, so is your emergency information — no extra habit to build, no separate thing to remember to carry.</p>
+
+      <ul class="spec-list">
+        <li><span>Chip</span><span>NXP NTAG216 (888 bytes)</span></li>
+        <li><span>Mount</span><span>Split-ring keyring loop</span></li>
+        <li><span>Material</span><span>PETG, 3D-printed</span></li>
+        <li><span>Weight</span><span>4.0 g</span></li>
+      </ul>
+
+      <div class="qty-row">
+        <div class="qty-control">
+          <button type="button" id="qty-minus" aria-label="Decrease quantity">–</button>
+          <input type="text" id="qty-input" value="1" inputmode="numeric" aria-label="Quantity">
+          <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn btn-primary" id="add-btn">Add to cart</button>
+      </div>
+
+      <div class="callout">
+        <h3>Ships blank</h3>
+        <p>This tag arrives empty. You write your own information after it arrives — see the <a href="how-to.html">how-to guide</a> for step-by-step instructions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <div class="wordmark">sibni<span class="dot"></span></div>
+      <p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you fill in yourself — nothing is stored by us.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="product-lace.html">Lace &amp; Velcro Tag</a></li>
+        <li><a href="product-keychain.html">Keychain Tag</a></li>
+        <li><a href="product-carabiner.html">Carabiner Tag</a></li>
+        <li><a href="product-lanyard.html">Lanyard Tag</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="how-to.html">How it works</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About sibni</a></li>
+        <li><a href="mailto:hello@sibni.tech">hello@sibni.tech</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-note">
+    © 2026 sibni. All tags are written and locked entirely by the buyer — sibni never receives or stores what you write.
+  </div>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script>
+  const PRODUCT_ID = "keychain-tag";
+  const qtyInput = document.getElementById("qty-input");
+  document.getElementById("qty-minus").addEventListener("click", () => {
+    qtyInput.value = Math.max(1, parseInt(qtyInput.value || "1") - 1);
+  });
+  document.getElementById("qty-plus").addEventListener("click", () => {
+    qtyInput.value = parseInt(qtyInput.value || "1") + 1;
+  });
+  document.getElementById("add-btn").addEventListener("click", () => {
+    addToCart(PRODUCT_ID, Math.max(1, parseInt(qtyInput.value || "1")));
+    const btn = document.getElementById("add-btn");
+    const original = btn.textContent;
+    btn.textContent = "Added";
+    setTimeout(() => btn.textContent = original, 1200);
+  });
+</script>
+</body>
+</html>
