@@ -16,6 +16,8 @@ const PRODUCTS = {
       "Weight": "3.2 g",
     },
     icon: "lace",
+    tint: "blue",
+    badge: "Shoelace / velcro",
   },
   "keychain-tag": {
     name: "Keychain Tag",
@@ -30,6 +32,8 @@ const PRODUCTS = {
       "Weight": "4.0 g",
     },
     icon: "key",
+    tint: "green",
+    badge: "Keyring",
   },
   "carabiner-tag": {
     name: "Carabiner Tag",
@@ -44,6 +48,8 @@ const PRODUCTS = {
       "Weight": "9.5 g",
     },
     icon: "carabiner",
+    tint: "amber",
+    badge: "Clip-on",
   },
   "lanyard-tag": {
     name: "Lanyard Tag",
@@ -58,6 +64,8 @@ const PRODUCTS = {
       "Weight": "5.1 g",
     },
     icon: "lanyard",
+    tint: "violet",
+    badge: "Neck strap",
   },
 };
 

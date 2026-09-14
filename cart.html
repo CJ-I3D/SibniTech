@@ -99,7 +99,7 @@
       const qty = cart[id];
       itemsHtml += `
         <div class="cart-item">
-          <div class="thumb">${productIcon(p.icon)}</div>
+          <div class="thumb tint-${p.tint}">${productIcon(p.icon)}</div>
           <div>
             <h3 style="margin:0 0 4px;">${p.name}</h3>
             <p style="margin:0; font-size:.9rem;">${money(p.price)} each</p>

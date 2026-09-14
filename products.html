@@ -80,7 +80,8 @@
   Object.entries(PRODUCTS).forEach(([id, p]) => {
     grid.innerHTML += `
       <a class="tag-card" href="product-${id.replace('-tag','')}.html">
-        <div class="art">${productIcon(p.icon)}</div>
+        <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
+        <span class="chip tint-${p.tint}">${p.badge}</span>
         <h3>${p.name}</h3>
         <p style="margin:0;">${p.tagline}</p>
         <span class="price">${money(p.price)}</span>
