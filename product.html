@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
   <!-- Standard Browser Favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon/Sibni_16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon/Sibni_32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/Sibni_16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/Sibni_32x32.png">
 
 <!-- Apple Touch Icon (iOS Home Screen) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon/Sibni_180x180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/Sibni_180x180.png">
 
 <!-- Android / PWA Icons (if created) -->
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon/Sibni_192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/favicon/Sibni_512x512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon/Sibni_192x192.png">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +39,19 @@
 <p id="product-description"></p>
 
 <div id="options"></div>
+
+<div class="product-option-group" id="customisation-options">
+  <strong>Choose your colour combination</strong>
+  <div id="colour-options" class="colour-combo-options" role="group" aria-label="Preferred colour combination"></div>
+  <p class="option-help">Choose the colour combination you prefer. Your choice is a preference for the order — urgent orders are fulfilled from what is currently in stock.</p>
+
+  <strong style="margin-top:20px;">How soon do you need it?</strong>
+  <div class="urgency-options" role="group" aria-label="Delivery urgency">
+    <button type="button" class="urgency-option selected" data-urgency="standard"><span>Not urgent</span><small>We’ll print your chosen colour combination and send your order within 3 weeks.</small></button>
+    <button type="button" class="urgency-option" data-urgency="urgent"><span>Urgent — from stock</span><small>We’ll send the closest available colour combination from current stock.</small></button>
+  </div>
+  <div class="delivery-note" id="delivery-note" aria-live="polite"></div>
+</div>
 
 <ul class="spec-list">
 <li><span>Material</span><span>3D-printed PETG</span></li>
@@ -78,6 +90,9 @@ const priceEl=document.getElementById("product-price");
 const artEl=document.getElementById("product-art");
 const optionsEl=document.getElementById("options");
 const mountEl=document.getElementById("mount");
+const colourOptionsEl=document.getElementById("colour-options");
+const customisationEl=document.getElementById("customisation-options");
+const deliveryNote=document.getElementById("delivery-note");
 document.title=product.name+" — Sibni";
 nameEl.textContent=product.name;
 badgeEl.textContent=product.badge;
@@ -88,6 +103,39 @@ artEl.className="art-big tint-"+product.tint;
 artEl.innerHTML=productIcon(product.icon);
 
 let selected=product.options[0];
+let selectedColour=COLOUR_OPTIONS[0].id;
+let selectedColourLabel=COLOUR_OPTIONS[0].label;
+let selectedUrgency="standard";
+function renderCustomisation(){
+  if(catalogId === "custom"){
+    customisationEl.style.display="none";
+    return;
+  }
+  const colourOptions=product.colourOptions || COLOUR_OPTIONS;
+  colourOptionsEl.innerHTML=colourOptions.map((c,i)=>`<button type="button" class="colour-combo ${i===0?'selected':''}" data-colour="${c.id}" aria-pressed="${i===0 ? 'true' : 'false'}">
+    <span class="colour-swatch-pair" aria-hidden="true"><span class="colour-swatch ${c.bodyClass}"></span><span class="colour-swatch ${c.textClass}"></span></span>
+    <span class="colour-combo-label">${c.label}</span>
+  </button>`).join("");
+  selectedColour=colourOptions[0].id;
+  selectedColourLabel=colourOptions[0].label;
+  colourOptionsEl.querySelectorAll("[data-colour]").forEach(btn=>btn.addEventListener("click",()=>{
+    const choice=colourOptions.find(c=>c.id===btn.dataset.colour) || colourOptions[0];
+    selectedColour=choice.id;
+    selectedColourLabel=choice.label;
+    colourOptionsEl.querySelectorAll(".colour-combo").forEach(b=>{b.classList.toggle("selected",b===btn);b.setAttribute("aria-pressed",b===btn?"true":"false")});
+  }));
+  customisationEl.querySelectorAll("[data-urgency]").forEach(btn=>btn.addEventListener("click",()=>{
+    selectedUrgency=btn.dataset.urgency;
+    customisationEl.querySelectorAll("[data-urgency]").forEach(b=>b.classList.toggle("selected",b===btn));
+    updateDeliveryNote();
+  }));
+  updateDeliveryNote();
+}
+function updateDeliveryNote(){
+  if(selectedUrgency === "urgent") deliveryNote.innerHTML='<strong>Urgent — from stock:</strong> we’ll send a colour combination that is currently in stock. It may be your preferred combination or a different one. If you order more than one tag, some may be in your preferred combination while others may be different.';
+  else deliveryNote.innerHTML='<strong>Not urgent:</strong> we’ll print your chosen colour combination and <strong>send your order within 3 weeks</strong>.';
+}
+
 function renderOptions(){
   if(product.options.length===1){
     optionsEl.innerHTML="";
@@ -110,7 +158,7 @@ function update(){
   priceEl.textContent=money(selected.price);
   mountEl.textContent=selected.mount;
 }
-renderOptions(); update();
+renderOptions(); renderCustomisation(); update();
 
 if(catalogId === "custom") {
   document.getElementById("purchase-row").innerHTML = '<a class="btn btn-primary btn-block" href="contact.html">Request a custom tag</a>';
@@ -121,7 +169,7 @@ const qtyInput=document.getElementById("qty-input");
 document.getElementById("qty-minus").addEventListener("click",()=>qtyInput.value=Math.max(1,parseInt(qtyInput.value||"1")-1));
 document.getElementById("qty-plus").addEventListener("click",()=>qtyInput.value=parseInt(qtyInput.value||"1")+1);
 document.getElementById("add-btn").addEventListener("click",()=>{
-  addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")));
+  addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")),{colour:selectedColour,colourLabel:selectedColourLabel,urgency:selectedUrgency});
   const btn=document.getElementById("add-btn"), original=btn.textContent;
   btn.textContent="Added"; setTimeout(()=>btn.textContent=original,1200);
 });

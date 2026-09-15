@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
   <!-- Standard Browser Favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon/Sibni_16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon/Sibni_32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/Sibni_16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/Sibni_32x32.png">
 
 <!-- Apple Touch Icon (iOS Home Screen) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon/Sibni_180x180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/Sibni_180x180.png">
 
 <!-- Android / PWA Icons (if created) -->
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon/Sibni_192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/favicon/Sibni_512x512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon/Sibni_192x192.png">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +35,7 @@
 </div></section>
 
 <section class="section-tight"><div class="wrap">
-<div class="tag-grid" id="product-grid"></div>
+<div id="product-groups"></div>
 </div></section>
 
 <footer class="footer"><div class="wrap">
@@ -50,20 +49,31 @@
 </footer>
 <script src="js/products.js"></script><script src="cart.js"></script>
 <script>
-const grid=document.getElementById("product-grid");
-Object.entries(CATALOG).forEach(([id,p])=>{
-  const prices=p.options.map(o=>o.price);
-  const priceText=prices.length>1 ? "From "+money(Math.min(...prices)) : money(prices[0]);
-  grid.innerHTML += `<a class="tag-card" href="product.html?id=${encodeURIComponent(id)}">
-    <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
-    <span class="chip tint-${p.tint}">${p.badge}</span>
-    <h3>${p.name}</h3><p style="margin:0;">${p.tagline}</p>
-    <span class="price">${priceText}</span>
-  </a>`;
-});
-const footer=document.getElementById("footer-shop");
-Object.entries(CATALOG).forEach(([id,p])=>{
-  footer.innerHTML += `<li><a href="product.html?id=${encodeURIComponent(id)}">${p.name}</a></li>`;
+const groupRoot=document.getElementById("product-groups");
+const GROUPS=[
+  {id:"carry",title:"Keychain, lanyard & carabiner",intro:"Tags for your own keychain or lanyard. Keychains and lanyards are not included; a carabiner can be added as an option."},
+  {id:"lace",title:"Velcro & shoelace",intro:"Low-profile tags designed for your own Velcro or shoelaces. Velcro and shoelaces are not included."},
+  {id:"ultra-thin",title:"Ultra Thin",intro:"Our slim business-card format for wallets and card holders."},
+  {id:"custom",title:"Custom tags",intro:"Need a different shape, size or attachment? Tell us what you have in mind."}
+];
+GROUPS.forEach(group=>{
+  const products=Object.entries(CATALOG).filter(([id,p])=>p.group===group.id);
+  if(!products.length)return;
+  const section=document.createElement("section");
+  section.className="product-group";
+  section.innerHTML=`<div class="product-group-heading"><div><h2>${group.title}</h2><p class="lede">${group.intro}</p></div></div><div class="tag-grid"></div>`;
+  const grid=section.querySelector(".tag-grid");
+  products.forEach(([id,p])=>{
+    const prices=p.options.map(o=>o.price);
+    const priceText=prices.length>1 ? "From "+money(Math.min(...prices)) : (id==="custom" ? "From "+money(prices[0]) : money(prices[0]));
+    grid.innerHTML += `<a class="tag-card" href="product.html?id=${encodeURIComponent(id)}">
+      <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
+      <span class="chip tint-${p.tint}">${p.badge}</span>
+      <h3>${p.name}</h3><p style="margin:0;">${p.tagline}</p>
+      <span class="price">${priceText}</span>
+    </a>`;
+  });
+  groupRoot.appendChild(section);
 });
 </script>
 </body></html>
