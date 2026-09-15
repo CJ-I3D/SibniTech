@@ -52,3 +52,11 @@
 .swatch-red{background:#c62828}.swatch-black{background:#111}.swatch-cream{background:#f3ead7}.swatch-translucent{background:linear-gradient(135deg,rgba(255,255,255,.7),rgba(190,205,215,.35))}.swatch-white{background:#fff}.swatch-steel{background:#66717d}.swatch-blue{background:#2563eb}.swatch-green{background:#257a4a}
 .colour-combo-label{font-weight:600;font-size:.94rem}
 @media(min-width:700px){.colour-combo-options{grid-template-columns:1fr 1fr}}
+
+/* Pricing, dimensions and promotions */
+.dimensions{font-size:.84rem;color:var(--text-dim);margin-top:-5px}
+.dimension-note{font-size:.82rem;color:var(--text-dim);margin-top:-10px}
+.shop-promos{margin-top:22px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:0 8px 8px 0;font-size:.92rem}
+.cart-promo{margin-top:18px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;font-size:.86rem}
+.discount-row{color:var(--signal)}
+.swatch-random{background:conic-gradient(#c62828 0 16.6%,#111 16.6% 33.2%,#f3ead7 33.2% 49.8%,#9fb1bd 49.8% 66.4%,#fff 66.4% 83%,#257a4a 83% 100%)}

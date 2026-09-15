@@ -3,12 +3,15 @@
    No chip/model information is exposed in the customer-facing catalogue.
 */
 
+const CARABINER_DIMENSIONS = "35 × 62 × 8 mm";
+
 const COLOUR_OPTIONS = [
   { id: "red-white", label: "Red body & White text", body: "Red", text: "White", bodyClass: "swatch-red", textClass: "swatch-white" },
   { id: "black-white", label: "Black body & White text", body: "Black", text: "White", bodyClass: "swatch-black", textClass: "swatch-white" },
   { id: "cream-steel", label: "Light Cream body & Steel Grey text", body: "Light Cream", text: "Steel Grey", bodyClass: "swatch-cream", textClass: "swatch-steel" },
   { id: "translucent-blue", label: "Translucent body & Blue text", body: "Translucent", text: "Blue", bodyClass: "swatch-translucent", textClass: "swatch-blue" },
-  { id: "white-green", label: "White body & Green text", body: "White", text: "Green", bodyClass: "swatch-white", textClass: "swatch-green" }
+  { id: "white-green", label: "White body & Green text", body: "White", text: "Green", bodyClass: "swatch-white", textClass: "swatch-green" },
+  { id: "random", label: "Random colour combination — 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" }
 ];
 
 const CATALOG = {
@@ -21,9 +24,10 @@ const CATALOG = {
     icon: "large-square",
     tint: "blue",
     badge: "Square",
+    dimensions: "80 × 80 × 5 mm",
     options: [
-      { id: "large-square-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "large-square-carabiner", label: "With carabiner", price: 15.99, mount: "Tag + optional carabiner" }
+      { id: "large-square-no-carabiner", label: "Without carabiner", price: 7.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "large-square-carabiner", label: "With carabiner (+€1) — random colour", price: 8.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "small-square": {
@@ -35,9 +39,10 @@ const CATALOG = {
     icon: "small-square",
     tint: "green",
     badge: "Square",
+    dimensions: "30 × 38 × 5 mm",
     options: [
-      { id: "small-square-no-carabiner", label: "Without carabiner", price: 10.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "small-square-carabiner", label: "With carabiner", price: 13.99, mount: "Tag + optional carabiner" }
+      { id: "small-square-no-carabiner", label: "Without carabiner", price: 5.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "small-square-carabiner", label: "With carabiner (+€1) — random colour", price: 6.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "large-round": {
@@ -49,9 +54,10 @@ const CATALOG = {
     icon: "large-round",
     tint: "amber",
     badge: "Round",
+    dimensions: "58 × 70 × 5 mm",
     options: [
-      { id: "large-round-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "large-round-carabiner", label: "With carabiner", price: 15.99, mount: "Tag + optional carabiner" }
+      { id: "large-round-no-carabiner", label: "Without carabiner", price: 7.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "large-round-carabiner", label: "With carabiner (+€1) — random colour", price: 8.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "small-round": {
@@ -63,9 +69,10 @@ const CATALOG = {
     icon: "small-round",
     tint: "violet",
     badge: "Round",
+    dimensions: "30 × 35 × 5 mm",
     options: [
-      { id: "small-round-no-carabiner", label: "Without carabiner", price: 10.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "small-round-carabiner", label: "With carabiner", price: 13.99, mount: "Tag + optional carabiner" }
+      { id: "small-round-no-carabiner", label: "Without carabiner", price: 5.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "small-round-carabiner", label: "With carabiner (+€1) — random colour", price: 6.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "lace-car": {
@@ -77,8 +84,9 @@ const CATALOG = {
     icon: "car",
     tint: "blue",
     badge: "Shoelace / velcro",
+    dimensions: "80 × 30 × 9 mm",
     options: [
-      { id: "lace-car", label: "Shoelace / velcro", price: 11.99, mount: "For your own shoelaces / Velcro" }
+      { id: "lace-car", label: "Shoelace / velcro", price: 4.99, mount: "For your own shoelaces / Velcro" }
     ]
   },
   "lace-duck": {
@@ -90,8 +98,9 @@ const CATALOG = {
     icon: "duck",
     tint: "amber",
     badge: "Shoelace / velcro",
+    dimensions: "35 × 45 × 9 mm",
     options: [
-      { id: "lace-duck", label: "Shoelace / velcro", price: 11.99, mount: "For your own shoelaces / Velcro" }
+      { id: "lace-duck", label: "Shoelace / velcro", price: 4.99, mount: "For your own shoelaces / Velcro" }
     ]
   },
   "lace-rocket": {
@@ -103,8 +112,9 @@ const CATALOG = {
     icon: "rocket",
     tint: "violet",
     badge: "Shoelace / velcro",
+    dimensions: "35 × 55 × 9 mm",
     options: [
-      { id: "lace-rocket", label: "Shoelace / velcro", price: 11.99, mount: "For your own shoelaces / Velcro" }
+      { id: "lace-rocket", label: "Shoelace / velcro", price: 4.99, mount: "For your own shoelaces / Velcro" }
     ]
   },
   "lace-bowtie": {
@@ -116,8 +126,9 @@ const CATALOG = {
     icon: "bowtie",
     tint: "green",
     badge: "Shoelace / velcro",
+    dimensions: "55 × 50 × 9 mm",
     options: [
-      { id: "lace-bowtie", label: "Shoelace / velcro", price: 11.99, mount: "For your own shoelaces / Velcro" }
+      { id: "lace-bowtie", label: "Shoelace / velcro", price: 4.99, mount: "For your own shoelaces / Velcro" }
     ]
   },
   "lace-rectangle": {
@@ -129,8 +140,9 @@ const CATALOG = {
     icon: "rectangle",
     tint: "blue",
     badge: "Shoelace / velcro",
+    dimensions: "45 × 30 × 9 mm",
     options: [
-      { id: "lace-rectangle", label: "Shoelace / velcro", price: 10.99, mount: "For your own shoelaces / Velcro" }
+      { id: "lace-rectangle", label: "Shoelace / velcro", price: 4.99, mount: "For your own shoelaces / Velcro" }
     ]
   },
   "flower": {
@@ -142,37 +154,25 @@ const CATALOG = {
     icon: "flower",
     tint: "violet",
     badge: "Flower",
+    dimensions: "55 × 55 × 20 mm",
     options: [
-      { id: "flower-no-carabiner", label: "Without carabiner", price: 12.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "flower-carabiner", label: "With carabiner", price: 15.99, mount: "Tag + optional carabiner" }
+      { id: "flower-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "flower-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
-  "dog": {
-    name: "Dog Tag",
-    slug: "dog",
+  "bear": {
+    name: "Bear Tag",
+    slug: "bear",
     group: "carry",
-    tagline: "Dog-shaped design.",
-    description: 'A dog-shaped tag for collars, bags and everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
-    icon: "dog",
+    tagline: "Bear-shaped design.",
+    description: 'A bear-shaped tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    icon: "bear",
     tint: "amber",
     badge: "Animal",
+    dimensions: "40 × 40 × 52 mm",
     options: [
-      { id: "dog-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "dog-carabiner", label: "With carabiner", price: 16.99, mount: "Tag + optional carabiner" }
-    ]
-  },
-  "cat": {
-    name: "Cat Tag",
-    slug: "cat",
-    group: "carry",
-    tagline: "Cat-shaped design.",
-    description: 'A cat-shaped tag for collars, bags and everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
-    icon: "cat",
-    tint: "green",
-    badge: "Animal",
-    options: [
-      { id: "cat-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "cat-carabiner", label: "With carabiner", price: 16.99, mount: "Tag + optional carabiner" }
+      { id: "bear-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "bear-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "car": {
@@ -184,9 +184,10 @@ const CATALOG = {
     icon: "car",
     tint: "blue",
     badge: "Shape",
+    dimensions: "60 × 40 × 25 mm",
     options: [
-      { id: "car-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "car-carabiner", label: "With carabiner", price: 16.99, mount: "Tag + optional carabiner" }
+      { id: "car-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "car-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "plane": {
@@ -198,35 +199,39 @@ const CATALOG = {
     icon: "plane",
     tint: "blue",
     badge: "Shape",
+    dimensions: "70 × 80 × 30 mm",
     options: [
-      { id: "plane-no-carabiner", label: "Without carabiner", price: 13.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "plane-carabiner", label: "With carabiner", price: 16.99, mount: "Tag + optional carabiner" }
+      { id: "plane-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
+      { id: "plane-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "business-card": {
-    name: "Business Card Tag",
+    name: "Ultra Thin",
     slug: "business-card",
     group: "ultra-thin",
-    tagline: "A very thin business-card shape.",
-    description: 'An ultra-thin business-card shaped tag designed to slip into a wallet or card holder. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    tagline: "An ultra-thin wallet-friendly format.",
+    description: 'An ultra-thin tag designed to slip into a wallet or card holder. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
     icon: "business-card",
     tint: "green",
     badge: "Ultra thin",
+    dimensions: "85 × 55 × 4 mm",
     options: [
-      { id: "business-card", label: "Standard", price: 14.99, mount: "Thin card format" }
+      { id: "business-card", label: "Standard", price: 9.99, mount: "Thin card format" }
     ]
   },
   "custom": {
     name: "Custom Tag",
     slug: "custom",
     group: "custom",
-    tagline: "A custom shape or size made to your specification. Tell us what you need through the online form.",
-    description: "Custom tags can be made around your required shape, size, attachment and other specifications. Use the online form to tell us what you need; the final marking can be discussed as part of the specification.",
+    tagline: "Custom shapes, colours and full-colour direct printing made to your specification.",
+    description: "Custom tags can be made to your specification, including custom shapes, custom colours and direct full-colour printing. We can print logos, graphics, text and other artwork directly on the tags. Use the online form to tell us what you need.",
+    dimensions: "On request",
+    priceOnRequest: true,
     icon: "custom",
     tint: "violet",
     badge: "Made to spec",
     options: [
-      { id: "custom", label: "Made to specification", price: 24.99, mount: "Custom" }
+      { id: "custom", label: "Made to specification", price: 0, mount: "Custom" }
     ]
   }
 };
@@ -245,12 +250,27 @@ Object.entries(CATALOG).forEach(([catalogId, product]) => {
       tint: product.tint,
       badge: product.badge,
       mount: option.mount,
+      dimensions: product.dimensions || "On request",
+      priceOnRequest: !!product.priceOnRequest,
       catalogId,
       colourOptions: product.colourOptions || COLOUR_OPTIONS
     };
   });
 });
 
+function isRandomColour(options){ return options?.colour === "random"; }
+function unitPrice(item){
+  const p=PRODUCTS[item.id];
+  if(!p) return 0;
+  const base=Number(p.price)||0;
+  return isRandomColour(item.options) ? Math.round(base*0.9*100)/100 : base;
+}
+function cartPricing(items){
+  const itemCount=items.reduce((sum,item)=>sum+(Number(item.qty)||0),0);
+  const rawSubtotal=items.reduce((sum,item)=>sum+unitPrice(item)*(Number(item.qty)||0),0);
+  const bulkDiscount=itemCount>=5 ? Math.round(rawSubtotal*0.10*100)/100 : 0;
+  return {itemCount, rawSubtotal, bulkDiscount, total:Math.max(0,Math.round((rawSubtotal-bulkDiscount)*100)/100)};
+}
 function money(n){ return "€" + Number(n).toFixed(2); }
 
 
@@ -270,6 +290,8 @@ function productIcon(kind){
       return `<svg viewBox="0 0 100 100" ${stroke}><path d="M50 44 C39 25 18 31 27 48 C8 45 5 66 26 66 C17 83 39 88 50 70 C61 88 83 83 74 66 C95 66 92 45 73 48 C82 31 61 25 50 44Z"/><circle cx="50" cy="55" r="8"/>${label}</svg>`;
     case "dog":
       return `<svg viewBox="0 0 100 100" ${stroke}><path d="M30 38 L19 25 L16 48 Q16 73 50 76 Q84 73 84 48 L81 25 L70 38"/><circle cx="38" cy="51" r="2"/><circle cx="62" cy="51" r="2"/><path d="M45 60 Q50 64 55 60"/>${label}</svg>`;
+    case "bear":
+      return `<svg viewBox="0 0 100 100" ${stroke}><circle cx="34" cy="30" r="10"/><circle cx="66" cy="30" r="10"/><path d="M25 49 Q25 25 50 25 Q75 25 75 49 V62 Q75 79 50 82 Q25 79 25 62Z"/><circle cx="40" cy="52" r="2"/><circle cx="60" cy="52" r="2"/><path d="M45 61 Q50 65 55 61 M50 61 V67"/>${label}</svg>`;
     case "cat":
       return `<svg viewBox="0 0 100 100" ${stroke}><path d="M25 42 L23 22 L40 31 Q50 27 60 31 L77 22 L75 42 Q82 64 50 76 Q18 64 25 42Z"/><circle cx="39" cy="51" r="2"/><circle cx="61" cy="51" r="2"/><path d="M46 60 Q50 63 54 60"/>${label}</svg>`;
     case "car":

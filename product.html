@@ -55,8 +55,11 @@
 
 <ul class="spec-list">
 <li><span>Material</span><span>3D-printed PETG</span></li>
+<li><span>Dimensions</span><span id="dimensions"></span></li>
+<li><span>Carabiner</span><span>35 × 62 × 8 mm · random colour</span></li>
 <li><span>Attachment</span><span id="mount"></span></li>
 </ul>
+<p class="dimension-note">Dimensions are approximate and may have a small margin of error due to the 3D-printing process. Carabiners are always supplied in random colours.</p>
 
 <div class="qty-row" id="purchase-row">
 <div class="qty-control"><button type="button" id="qty-minus">–</button><input type="text" id="qty-input" value="1" inputmode="numeric" aria-label="Quantity"><button type="button" id="qty-plus">+</button></div>
@@ -90,6 +93,7 @@ const priceEl=document.getElementById("product-price");
 const artEl=document.getElementById("product-art");
 const optionsEl=document.getElementById("options");
 const mountEl=document.getElementById("mount");
+const dimensionsEl=document.getElementById("dimensions");
 const colourOptionsEl=document.getElementById("colour-options");
 const customisationEl=document.getElementById("customisation-options");
 const deliveryNote=document.getElementById("delivery-note");
@@ -122,6 +126,7 @@ function renderCustomisation(){
     const choice=colourOptions.find(c=>c.id===btn.dataset.colour) || colourOptions[0];
     selectedColour=choice.id;
     selectedColourLabel=choice.label;
+    update();
     colourOptionsEl.querySelectorAll(".colour-combo").forEach(b=>{b.classList.toggle("selected",b===btn);b.setAttribute("aria-pressed",b===btn?"true":"false")});
   }));
   customisationEl.querySelectorAll("[data-urgency]").forEach(btn=>btn.addEventListener("click",()=>{
@@ -154,24 +159,33 @@ function renderOptions(){
     });
   }
 }
+function selectedUnitPrice(){
+  const base=Number(selected.price)||0;
+  return selectedColour === "random" ? Math.round(base*0.9*100)/100 : base;
+}
 function update(){
-  priceEl.textContent=money(selected.price);
+  const price=selectedUnitPrice();
+  priceEl.textContent=product.priceOnRequest ? "P.O.R." : money(price) + (selectedColour === "random" ? " — 10% off" : "");
   mountEl.textContent=selected.mount;
+  dimensionsEl.textContent=product.dimensions || "On request";
 }
 renderOptions(); renderCustomisation(); update();
 
 if(catalogId === "custom") {
   document.getElementById("purchase-row").innerHTML = '<a class="btn btn-primary btn-block" href="contact.html">Request a custom tag</a>';
-  document.querySelector(".callout").innerHTML = '<h3>Tell us what you need</h3><p>Custom tags are made to specification. Use our <a href="contact.html">online form</a> to send us the size, shape, attachment, colours and any other requirements.</p>';
+  document.querySelector(".callout").innerHTML = '<h3>Tell us what you need</h3><p>We can do direct full-colour printing on the tags, including logos, graphics and text, as well as custom shapes, custom colours and other bespoke requirements. Use our <a href="contact.html">online form</a> to tell us what you need.</p>';
 }
 
 const qtyInput=document.getElementById("qty-input");
-document.getElementById("qty-minus").addEventListener("click",()=>qtyInput.value=Math.max(1,parseInt(qtyInput.value||"1")-1));
-document.getElementById("qty-plus").addEventListener("click",()=>qtyInput.value=parseInt(qtyInput.value||"1")+1);
-document.getElementById("add-btn").addEventListener("click",()=>{
-  addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")),{colour:selectedColour,colourLabel:selectedColourLabel,urgency:selectedUrgency});
-  const btn=document.getElementById("add-btn"), original=btn.textContent;
-  btn.textContent="Added"; setTimeout(()=>btn.textContent=original,1200);
-});
+const addBtn=document.getElementById("add-btn");
+if(qtyInput && addBtn){
+  document.getElementById("qty-minus").addEventListener("click",()=>qtyInput.value=Math.max(1,parseInt(qtyInput.value||"1")-1));
+  document.getElementById("qty-plus").addEventListener("click",()=>qtyInput.value=parseInt(qtyInput.value||"1")+1);
+  addBtn.addEventListener("click",()=>{
+    addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")),{colour:selectedColour,colourLabel:selectedColourLabel,urgency:selectedUrgency});
+    const original=addBtn.textContent;
+    addBtn.textContent="Added"; setTimeout(()=>addBtn.textContent=original,1200);
+  });
+}
 </script>
 </body></html>

@@ -27,7 +27,7 @@ function addToCart(id,qty,options={}){
 function setQty(key,qty){const items=getCart();const item=items.find(i=>i.key===key);if(!item)return;if(qty<=0){removeFromCart(key);return;}item.qty=qty;saveCart(items)}
 function removeFromCart(key){saveCart(getCart().filter(i=>i.key!==key))}
 function cartCount(){return getCart().reduce((a,b)=>a+(Number(b.qty)||0),0)}
-function cartTotal(){return getCart().reduce((total,item)=>{const p=PRODUCTS[item.id];return total+(p?(p.price*item.qty):0)},0)}
+function cartTotal(){return cartPricing(getCart()).total}
 function updateCartBadge(){document.querySelectorAll("[data-cart-count]").forEach(el=>el.textContent=cartCount())}
 function initNav(){const toggle=document.querySelector(".nav-toggle"),links=document.querySelector(".nav-links");if(toggle&&links)toggle.addEventListener("click",()=>links.classList.toggle("open"));updateCartBadge()}
 document.addEventListener("DOMContentLoaded",initNav);

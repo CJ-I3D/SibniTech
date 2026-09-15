@@ -31,7 +31,7 @@
 
 <section class="section-tight"><div class="wrap">
 <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Shop</h1>
-<p class="lede">Pick the shape that suits you. Each tag is ready for you to set up with your own link or information using our simple guide.</p>
+<p class="lede">Pick the shape that suits you. Each tag is ready for you to set up with your own link or information using our simple guide.</p><div class="shop-promos"><strong>Save more:</strong> choose a random colour combination for 10% off, and get a further 10% off when you buy 5 or more items.</div>
 </div></section>
 
 <section class="section-tight"><div class="wrap">
@@ -51,10 +51,10 @@
 <script>
 const groupRoot=document.getElementById("product-groups");
 const GROUPS=[
-  {id:"carry",title:"Keychain, lanyard & carabiner",intro:"Tags for your own keychain or lanyard. Keychains and lanyards are not included; a carabiner can be added as an option."},
+  {id:"carry",title:"Keychain, lanyard & carabiner",intro:"Tags for your own keychain or lanyard. Keychains and lanyards are not included; a carabiner can be added for €1. Carabiners are always supplied in random colours."},
   {id:"lace",title:"Velcro & shoelace",intro:"Low-profile tags designed for your own Velcro or shoelaces. Velcro and shoelaces are not included."},
   {id:"ultra-thin",title:"Ultra Thin",intro:"Our slim business-card format for wallets and card holders."},
-  {id:"custom",title:"Custom tags",intro:"Need a different shape, size or attachment? Tell us what you have in mind."}
+  {id:"custom",title:"Custom tags",intro:"Direct full-colour printing, logos, custom shapes, custom colours and more — made to your specification. Custom pricing is P.O.R."}
 ];
 GROUPS.forEach(group=>{
   const products=Object.entries(CATALOG).filter(([id,p])=>p.group===group.id);
@@ -65,12 +65,12 @@ GROUPS.forEach(group=>{
   const grid=section.querySelector(".tag-grid");
   products.forEach(([id,p])=>{
     const prices=p.options.map(o=>o.price);
-    const priceText=prices.length>1 ? "From "+money(Math.min(...prices)) : (id==="custom" ? "From "+money(prices[0]) : money(prices[0]));
+    const priceText=p.priceOnRequest ? "P.O.R." : (prices.length>1 ? "From "+money(Math.min(...prices)) : money(prices[0]));
     grid.innerHTML += `<a class="tag-card" href="product.html?id=${encodeURIComponent(id)}">
       <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
       <span class="chip tint-${p.tint}">${p.badge}</span>
       <h3>${p.name}</h3><p style="margin:0;">${p.tagline}</p>
-      <span class="price">${priceText}</span>
+      <span class="dimensions">${p.dimensions || "On request"}</span><span class="price">${priceText}</span>
     </a>`;
   });
   groupRoot.appendChild(section);
