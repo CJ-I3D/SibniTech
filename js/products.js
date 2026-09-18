@@ -11,7 +11,7 @@ const COLOUR_OPTIONS = [
   { id: "cream-steel", label: "Light Cream body & Steel Grey text", body: "Light Cream", text: "Steel Grey", bodyClass: "swatch-cream", textClass: "swatch-steel" },
   { id: "translucent-blue", label: "Translucent body & Blue text", body: "Translucent", text: "Blue", bodyClass: "swatch-translucent", textClass: "swatch-blue" },
   { id: "white-green", label: "White body & Green text", body: "White", text: "Green", bodyClass: "swatch-white", textClass: "swatch-green" },
-  { id: "random", label: "Random colour combination — 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" }
+  { id: "random", label: "Random colour combination - 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" }
 ];
 
 const SWATCH_CLASS = { red: "swatch-red", black: "swatch-black", white: "swatch-white", green: "swatch-green", beige: "swatch-cream", gold: "swatch-cream", grey: "swatch-steel", "dark blue": "swatch-blue", transparent: "swatch-translucent" };
@@ -23,7 +23,7 @@ function makeColours(pairs) {
     const id = pair.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     return { id, label: parts.length > 1 ? `${body} body & ${text} text` : body, body, text, bodyClass: SWATCH_CLASS[body.toLowerCase()] || "swatch-cream", textClass: SWATCH_CLASS[text.toLowerCase()] || "swatch-cream" };
   });
-  options.push({ id: "random", label: "Random colour combination — 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" });
+  options.push({ id: "random", label: "Random colour combination - 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" });
   return options;
 }
 
@@ -40,8 +40,8 @@ const CATALOG = {
     badge: "Square",
     dimensions: "80 × 80 × 5 mm",
     options: [
-      { id: "large-square-no-carabiner", label: "Without carabiner", price: 7.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "large-square-carabiner", label: "With carabiner (+€1) — random colour", price: 8.99, mount: "Tag + carabiner (random colour)" }
+      { id: "large-square-no-carabiner", label: "Without carabiner", price: 7.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "large-square-carabiner", label: "With carabiner (+€1) - random colour", price: 8.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "small-square": {
@@ -56,8 +56,8 @@ const CATALOG = {
     badge: "Square",
     dimensions: "30 × 38 × 5 mm",
     options: [
-      { id: "small-square-no-carabiner", label: "Without carabiner", price: 5.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "small-square-carabiner", label: "With carabiner (+€1) — random colour", price: 6.99, mount: "Tag + carabiner (random colour)" }
+      { id: "small-square-no-carabiner", label: "Without carabiner", price: 5.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "small-square-carabiner", label: "With carabiner (+€1) - random colour", price: 6.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "large-round": {
@@ -72,8 +72,8 @@ const CATALOG = {
     badge: "Round",
     dimensions: "58 × 70 × 5 mm",
     options: [
-      { id: "large-round-no-carabiner", label: "Without carabiner", price: 7.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "large-round-carabiner", label: "With carabiner (+€1) — random colour", price: 8.99, mount: "Tag + carabiner (random colour)" }
+      { id: "large-round-no-carabiner", label: "Without carabiner", price: 7.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "large-round-carabiner", label: "With carabiner (+€1) - random colour", price: 8.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "small-round": {
@@ -88,8 +88,8 @@ const CATALOG = {
     badge: "Round",
     dimensions: "30 × 35 × 5 mm",
     options: [
-      { id: "small-round-no-carabiner", label: "Without carabiner", price: 5.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "small-round-carabiner", label: "With carabiner (+€1) — random colour", price: 6.99, mount: "Tag + carabiner (random colour)" }
+      { id: "small-round-no-carabiner", label: "Without carabiner", price: 5.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "small-round-carabiner", label: "With carabiner (+€1) - random colour", price: 6.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "lace-car": {
@@ -179,8 +179,8 @@ const CATALOG = {
     badge: "Flower",
     dimensions: "55 × 55 × 20 mm",
     options: [
-      { id: "flower-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "flower-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
+      { id: "flower-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "flower-carabiner", label: "With carabiner (+€1) - random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "bear": {
@@ -195,8 +195,8 @@ const CATALOG = {
     badge: "Animal",
     dimensions: "40 × 40 × 52 mm",
     options: [
-      { id: "bear-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "bear-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
+      { id: "bear-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "bear-carabiner", label: "With carabiner (+€1) - random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "car": {
@@ -211,8 +211,8 @@ const CATALOG = {
     badge: "Shape",
     dimensions: "60 × 40 × 25 mm",
     options: [
-      { id: "car-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "car-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
+      { id: "car-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "car-carabiner", label: "With carabiner (+€1) - random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "plane": {
@@ -227,8 +227,8 @@ const CATALOG = {
     badge: "Shape",
     dimensions: "70 × 80 × 30 mm",
     options: [
-      { id: "plane-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only — use your own keychain or lanyard" },
-      { id: "plane-carabiner", label: "With carabiner (+€1) — random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
+      { id: "plane-no-carabiner", label: "Without carabiner", price: 8.99, mount: "Tag only - use your own keychain or lanyard" },
+      { id: "plane-carabiner", label: "With carabiner (+€1) - random colour", price: 9.99, mount: "Tag + carabiner (random colour)" }
     ]
   },
   "business-card": {
@@ -281,7 +281,7 @@ const PRODUCTS = {};
 Object.entries(CATALOG).forEach(([catalogId, product]) => {
   product.options.forEach(option => {
     PRODUCTS[option.id] = {
-      name: product.name + (product.options.length > 1 ? " — " + option.label : ""),
+      name: product.name + (product.options.length > 1 ? " - " + option.label : ""),
       baseName: product.name,
       price: option.price,
       tagline: product.tagline,

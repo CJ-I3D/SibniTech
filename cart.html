@@ -10,22 +10,95 @@
 <!-- Android / PWA Icons (if created) -->
 <link rel="icon" type="image/png" sizes="192x192" href="favicon/Sibni_192x192.png">
 
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Cart — Sibni</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Cart - Sibni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/sibni-update.css"></head>
 <body><header class="nav"><div class="wrap"><a href="index.html" class="wordmark">Sibni<span class="dot"></span></a><button class="nav-toggle" aria-label="Toggle menu">☰</button><nav class="nav-links"><a href="products.html">Shop</a><a href="how-to.html">How it works</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count>0</span></a></nav></div></header>
 <section class="section-tight"><div class="wrap"><h1 style="font-size:clamp(2rem,4vw,2.8rem);">Your cart</h1></div></section>
 <section class="section-tight"><div class="wrap"><div id="cart-root"></div></div></section>
-<footer class="footer"><div class="wrap"><div><div class="wordmark">Sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself — nothing is stored by us.</p></div><div><h4>Shop</h4><ul><li><a href="products.html">All tags</a></li><li><a href="product.html?id=custom">Custom tag</a></li></ul></div><div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div><div><h4>Company</h4><ul><li><a href="contact.html">Contact / custom orders</a></li></ul></div></div><div class="wrap foot-note">© 2026 Sibni. Your NFC content is written directly by you and is not sent to Sibni.</div></footer>
-<script src="js/products.js"></script><script src="cart.js"></script><script>
+<footer class="footer"><div class="wrap"><div><div class="wordmark">Sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself - nothing is stored by us.</p></div><div><h4>Shop</h4><ul><li><a href="products.html">All tags</a></li><li><a href="product.html?id=custom">Custom tag</a></li></ul></div><div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="shipping.html">Shipping &amp; Pickup</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div><div><h4>Company</h4><ul><li><a href="contact.html">Contact / custom orders</a></li></ul></div></div><div class="wrap foot-note">© 2026 Sibni. Your NFC content is written directly by you and is not sent to Sibni.</div></footer>
+<script src="js/products.js"></script><script src="js/shipping.js"></script><script src="cart.js"></script><script>
+const shippingReady = typeof SHIPPING_OPTIONS !== "undefined" && typeof getShippingChoice === "function";
+
 function renderCart(){
- const cart=getCart(), root=document.getElementById("cart-root");
- if(!cart.length){root.innerHTML='<div class="empty-state"><h3>Your cart is empty</h3><p>Nothing in here yet.</p><a href="products.html" class="btn btn-primary" style="margin-top:12px;">Shop tags</a></div>';return;}
- let items="";
- cart.forEach(item=>{const p=PRODUCTS[item.id];if(!p)return;const qty=item.qty;const colour=item.options?.colourLabel||item.options?.colour||"No preference";const urgency=item.options?.urgency==="urgent"?"Urgent":"Not urgent";const price=unitPrice(item);items+=`<div class="cart-item"><div class="thumb tint-${p.tint}">${productIcon(p.icon)}</div><div><h3 style="margin:0 0 4px;">${p.name}</h3><p style="margin:0;font-size:.9rem;">${money(price)} each${item.options?.colour==="random" ? " · Random colour discount" : ""}</p><div class="cart-options"><span>Colour: ${colour}</span><span>${urgency}</span></div></div><div class="qty-control"><button type="button" data-action="dec" data-key="${item.key}">–</button><input type="text" value="${qty}" readonly style="width:32px;"><button type="button" data-action="inc" data-key="${item.key}">+</button></div><div style="text-align:right;"><div style="font-family:var(--font-head);color:var(--signal);font-weight:600;">${money(price*qty)}</div><a href="#" class="remove-link" data-remove="${item.key}">Remove</a></div></div>`});
- const pricing=cartPricing(cart);
- root.innerHTML=`<div class="cart-page-grid"><div>${items}<p class="cart-promo">Random colour combinations are 10% off. Orders of 5 or more items receive a further 10% off.</p></div><div class="cart-summary"><h3>Summary</h3><div class="row"><span>Subtotal</span><span>${money(pricing.rawSubtotal)}</span></div>${pricing.bulkDiscount>0?`<div class="row discount-row"><span>5+ item discount</span><span>−${money(pricing.bulkDiscount)}</span></div>`:""}<div class="row"><strong>Total</strong><strong>${money(pricing.total)}</strong></div><div class="row" style="color:var(--text-dim);font-size:.9rem;"><span>Shipping</span><span>Calculated at checkout</span></div><hr class="divider" style="margin:14px 0;"><a href="checkout.html" class="btn btn-primary btn-block">Checkout</a></div></div>`;
- root.querySelectorAll("[data-action]").forEach(btn=>btn.addEventListener("click",()=>{const c=getCart(),item=c.find(i=>i.key===btn.dataset.key),n=(item?.qty||1)+(btn.dataset.action==="inc"?1:-1);setQty(btn.dataset.key,n);renderCart()}));
- root.querySelectorAll("[data-remove]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();removeFromCart(a.dataset.remove);renderCart()}));
+ const root=document.getElementById("cart-root");
+ try{
+  const cart=getCart();
+  if(!cart.length){root.innerHTML='<div class="empty-state"><h3>Your cart is empty</h3><p>Nothing in here yet.</p><a href="products.html" class="btn btn-primary" style="margin-top:12px;">Shop tags</a></div>';return;}
+  let items="";
+  cart.forEach(item=>{const p=PRODUCTS[item.id];if(!p)return;const qty=item.qty;const colour=item.options?.colourLabel||item.options?.colour||"No preference";const urgency=item.options?.urgency==="urgent"?"Urgent":"Not urgent";const price=unitPrice(item);const thumbArt=p.photos && p.photos.length ? `<img class="card-photo" src="${p.photos[0]}" alt="${p.name}" loading="lazy" onerror="this.replaceWith(document.createTextNode(''));">` : productIcon(p.icon);items+=`<div class="cart-item"><div class="thumb tint-${p.tint}">${thumbArt}</div><div><h3 style="margin:0 0 4px;">${p.name}</h3><p style="margin:0;font-size:.9rem;">${money(price)} each${item.options?.colour==="random" ? " · Random colour discount" : ""}</p><div class="cart-options"><span>Colour: ${colour}</span><span>${urgency}</span></div></div><div class="qty-control"><button type="button" data-action="dec" data-key="${item.key}">–</button><input type="text" value="${qty}" readonly style="width:32px;"><button type="button" data-action="inc" data-key="${item.key}">+</button></div><div style="text-align:right;"><div style="font-family:var(--font-head);color:var(--signal);font-weight:600;">${money(price*qty)}</div><a href="#" class="remove-link" data-remove="${item.key}">Remove</a></div></div>`});
+  const pricing=cartPricing(cart);
+
+  let deliveryHtml, fee, readyToCheckout;
+  if (shippingReady){
+    const sel = getShippingChoice();
+    const chosenMethod = sel ? sel.method : null;
+    const chosenCountry = sel ? sel.country : null;
+
+    const zoneGroups = {A1:"Europe", A2:"North Africa / Levant", B:"Americas, Gulf & Africa", C:"Oceania, Latin America & Asia"};
+    const countryOptions = Object.entries(zoneGroups).map(([zone,label])=>{
+      const countries = Object.keys(INTL_COUNTRIES).filter(c=>INTL_COUNTRIES[c]===zone).sort();
+      return `<optgroup label="${label} - ${money(INTL_ZONE_PRICES[zone])}">${countries.map(c=>`<option value="${c}" ${chosenCountry===c?'selected':''}>${c}</option>`).join("")}</optgroup>`;
+    }).join("");
+
+    deliveryHtml = ["pickup","malta","gozo","international"].map(id=>{
+      const opt = SHIPPING_OPTIONS[id];
+      const isIntl = id === "international";
+      const priceDisplay = isIntl
+        ? (chosenMethod==="international" && chosenCountry && INTL_COUNTRIES[chosenCountry] ? money(INTL_ZONE_PRICES[INTL_COUNTRIES[chosenCountry]]) : `From ${money(Math.min(...Object.values(INTL_ZONE_PRICES)))}`)
+        : money(opt.price);
+      return `
+        <label style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-top:1px solid var(--line); cursor:pointer;">
+          <input type="radio" name="shipping" value="${id}" ${chosenMethod===id?'checked':''} style="margin-top:3px; width:16px; height:16px;">
+          <span style="flex:1;">
+            <span style="display:flex; justify-content:space-between; gap:10px; font-weight:600;">
+              <span>${opt.label}</span>
+              <span>${priceDisplay}</span>
+            </span>
+            <span style="display:block; font-size:.85rem; color:var(--text-dim); margin-top:2px;">${opt.description}</span>
+            ${isIntl ? `<select id="intl-country" style="width:100%; margin-top:10px; padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:var(--ink); color:var(--text); ${chosenMethod==='international' ? '' : 'display:none;'}"><option value="">Choose your country…</option>${countryOptions}</select><p style="font-size:.8rem; color:var(--text-dim); margin:6px 0 0; ${chosenMethod==='international' ? '' : 'display:none;'}">Don't see your country? <a href="contact.html">Contact us</a> - MaltaPost may still cover it.</p>` : ''}
+          </span>
+        </label>`;
+    }).join("");
+    fee=shippingFee();
+    readyToCheckout=shippingIsChosen();
+  } else {
+    // Delivery options failed to load (e.g. js/shipping.js missing or 404).
+    // Don't block the whole cart - fall back to "no delivery selection yet"
+    // rather than crashing the render.
+    console.error("Sibni: js/shipping.js did not load - delivery options are unavailable. Check that the file exists at that path.");
+    deliveryHtml = `<p style="font-size:.85rem; color:var(--danger);">Delivery options failed to load. You can still continue to checkout - we'll follow up about delivery by email.</p>`;
+    fee = 0;
+    readyToCheckout = true;
+  }
+
+  const grandTotal=pricing.total+fee;
+
+  root.innerHTML=`<div class="cart-page-grid"><div>${items}<p class="cart-promo">Random colour combinations are 10% off. Orders of 5 or more items receive a further 10% off.</p></div><div class="cart-summary"><h3>Summary</h3><div class="row"><span>Subtotal</span><span>${money(pricing.rawSubtotal)}</span></div>${pricing.bulkDiscount>0?`<div class="row discount-row"><span>5+ item discount</span><span>−${money(pricing.bulkDiscount)}</span></div>`:""}<hr class="divider" style="margin:14px 0;"><strong style="display:block; margin-bottom:4px;">Delivery</strong>${deliveryHtml}<hr class="divider" style="margin:14px 0;"><div class="row"><strong>Total</strong><strong>${money(grandTotal)}</strong></div>${readyToCheckout?'':'<p style="font-size:.85rem; color:var(--text-dim); margin:6px 0 0;">Choose a delivery method to continue.</p>'}<a href="checkout.html" class="btn btn-primary btn-block" style="margin-top:14px;${readyToCheckout?'':' opacity:.5; pointer-events:none;'}" ${readyToCheckout?'':'aria-disabled="true" tabindex="-1"'}>Checkout</a></div></div>`;
+  root.querySelectorAll("[data-action]").forEach(btn=>btn.addEventListener("click",()=>{const c=getCart(),item=c.find(i=>i.key===btn.dataset.key),n=(item?.qty||1)+(btn.dataset.action==="inc"?1:-1);setQty(btn.dataset.key,n);renderCart()}));
+  root.querySelectorAll("[data-remove]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();removeFromCart(a.dataset.remove);renderCart()}));
+  if (shippingReady){
+    root.querySelectorAll('input[name="shipping"]').forEach(input=>input.addEventListener("change",e=>{
+      const method = e.target.value;
+      if (method === "international"){
+        const existing = getShippingChoice();
+        setShippingChoice("international", existing && existing.method==="international" ? existing.country : null);
+      } else {
+        setShippingChoice(method);
+      }
+      renderCart();
+    }));
+    const countrySelect = document.getElementById("intl-country");
+    if (countrySelect){
+      countrySelect.addEventListener("change", e=>{
+        setShippingChoice("international", e.target.value || null);
+        renderCart();
+      });
+    }
+  }
+ } catch(err){
+  console.error("Sibni: cart failed to render", err);
+  root.innerHTML = `<div class="empty-state"><h3>Something went wrong showing your cart</h3><p>Your items are still saved. Try refreshing the page - if it keeps happening, check the browser console for the error, or <a href="contact.html">contact us</a>.</p></div>`;
+ }
 }
 renderCart();
 </script></body></html>
