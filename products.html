@@ -67,7 +67,7 @@ GROUPS.forEach(group=>{
     const prices=p.options.map(o=>o.price);
     const priceText=p.priceOnRequest ? "P.O.R." : (prices.length>1 ? "From "+money(Math.min(...prices)) : money(prices[0]));
     grid.innerHTML += `<a class="tag-card" href="product.html?id=${encodeURIComponent(id)}">
-      <div class="art tint-${p.tint}">${productIcon(p.icon)}</div>
+      <div class="art tint-${p.tint}">${p.photos && p.photos.length ? `<img class="card-photo" src="${p.photos[0]}" alt="${p.name}" loading="lazy" onerror="this.replaceWith(document.createTextNode(""));">` : productIcon(p.icon)}</div>
       <span class="chip tint-${p.tint}">${p.badge}</span>
       <h3>${p.name}</h3><p style="margin:0;">${p.tagline}</p>
       <span class="dimensions">${p.dimensions || "On request"}</span><span class="price">${priceText}</span>

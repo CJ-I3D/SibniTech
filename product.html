@@ -30,7 +30,7 @@
 </nav></div></header>
 
 <section class="section-tight"><div class="wrap product-detail">
-<div class="art-big tint-blue" id="product-art" aria-hidden="true"></div>
+<div><div class="art-big tint-blue" id="product-art" aria-hidden="true"></div><div id="product-gallery" class="photo-gallery" hidden></div></div>
 <div>
 <span class="chip tint-blue" id="product-badge"></span>
 <h1 id="product-name" style="font-size:clamp(1.9rem,3.4vw,2.5rem); margin-top:10px;"></h1>
@@ -69,6 +69,7 @@
 <li><span>Attachment</span><span id="mount"></span></li>
 </ul>
 <p class="dimension-note">Dimensions are approximate and may have a small margin of error due to the 3D-printing process. Carabiners are always supplied in random colours.</p>
+<p class="dimension-note">The tag body and carabiner are 3D-printed plastic. Please avoid leaving your tag in direct sunlight or in a hot car for long periods — prolonged heat exposure can warp or discolour the shell.</p>
 
 <div class="qty-row" id="purchase-row">
 <div class="qty-control"><button type="button" id="qty-minus">–</button><input type="text" id="qty-input" value="1" inputmode="numeric" aria-label="Quantity"><button type="button" id="qty-plus">+</button></div>
@@ -100,6 +101,7 @@ const taglineEl=document.getElementById("product-tagline");
 const descriptionEl=document.getElementById("product-description");
 const priceEl=document.getElementById("product-price");
 const artEl=document.getElementById("product-art");
+const galleryEl=document.getElementById("product-gallery");
 const optionsEl=document.getElementById("options");
 const mountEl=document.getElementById("mount");
 const dimensionsEl=document.getElementById("dimensions");
@@ -114,7 +116,19 @@ badgeEl.className="chip tint-"+product.tint;
 taglineEl.textContent=product.tagline;
 descriptionEl.textContent=product.description || "";
 artEl.className="art-big tint-"+product.tint;
-artEl.innerHTML=productIcon(product.icon);
+if (Array.isArray(product.photos) && product.photos.length) {
+  // Use the first custom photo as the primary product visual instead of showing
+  // the generic illustration above the real product photo.
+  const primaryPhoto = product.photos[0];
+  artEl.innerHTML = `<img class="product-hero-photo" src="${primaryPhoto}" alt="${product.name}" loading="eager" onerror="this.replaceWith(document.createTextNode(""));">`;
+  artEl.classList.add("has-product-photo");
+  galleryEl.innerHTML = product.photos.slice(1).map((src, i) => `<img src="${src}" alt="${product.name} product photo ${i+2}" loading="lazy" onerror="this.remove()">`).join("") + (product.photos.length > 1 ? '<p class="gallery-caption">Product photos show examples of the available designs and finishes.</p>' : '');
+  galleryEl.hidden = product.photos.length <= 1;
+} else {
+  // Only products without custom photos use the generic illustration.
+  artEl.innerHTML = productIcon(product.icon);
+  galleryEl.hidden = true;
+}
 
 let selected=product.options[0];
 let selectedColour=COLOUR_OPTIONS[0].id;

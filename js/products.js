@@ -263,6 +263,19 @@ const CATALOG = {
   }
 };
 
+const PRODUCT_PHOTOS = {
+  "large-square": ["Photos/LargeSquare_1.jpg"],
+  "small-square": ["Photos/SmallSquare_1.jpg"],
+  "large-round": ["Photos/LargeRoundTag_1.jpg"],
+  "small-round": ["Photos/SmallRound_1.jpg"],
+  "lace-car": ["Photos/CarTag_1.jpg"],
+  "lace-duck": ["Photos/Duck_1.jpg"],
+  "lace-rocket": ["Photos/Rocket_1.jpg"],
+  "lace-bowtie": ["Photos/BowtieShoelace_1.jpg"],
+  "lace-rectangle": ["Photos/SimpleRectangleShoelace_1.jpg"]
+};
+Object.entries(PRODUCT_PHOTOS).forEach(([id, photos]) => { if (CATALOG[id]) CATALOG[id].photos = photos; });
+
 /* Flatten variants for the existing cart system. */
 const PRODUCTS = {};
 Object.entries(CATALOG).forEach(([catalogId, product]) => {
@@ -280,7 +293,8 @@ Object.entries(CATALOG).forEach(([catalogId, product]) => {
       dimensions: product.dimensions || "On request",
       priceOnRequest: !!product.priceOnRequest,
       catalogId,
-      colourOptions: product.colourOptions || COLOUR_OPTIONS
+      colourOptions: product.colourOptions || COLOUR_OPTIONS,
+      photos: product.photos || []
     };
   });
 });

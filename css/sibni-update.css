@@ -60,3 +60,61 @@
 .cart-promo{margin-top:18px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;font-size:.86rem}
 .discount-row{color:var(--signal)}
 .swatch-random{background:conic-gradient(#c62828 0 16.6%,#111 16.6% 33.2%,#f3ead7 33.2% 49.8%,#9fb1bd 49.8% 66.4%,#fff 66.4% 83%,#257a4a 83% 100%)}
+
+
+/* Version 2 — warm sunset gradient theme */
+:root{
+  --warm-bg:#fffaf5;
+  --warm-peach:#ffe8dc;
+  --warm-yellow:#fff2c9;
+  --warm-coral:#f08b78;
+}
+body{
+  background:
+    radial-gradient(ellipse at 8% 8%, rgba(255,216,190,.55), transparent 38%),
+    radial-gradient(ellipse at 92% 18%, rgba(255,239,184,.55), transparent 34%),
+    linear-gradient(145deg, #fffaf5 0%, #fff5ed 46%, #fffbed 100%);
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.65;
+  background:
+    radial-gradient(ellipse at 80% 70%, transparent 0 32%, rgba(240,139,120,.13) 32.2% 32.45%, transparent 32.7%),
+    radial-gradient(ellipse at 15% 88%, transparent 0 27%, rgba(244,191,76,.14) 27.2% 27.45%, transparent 27.7%);
+}
+.nav{background:rgba(255,250,245,.88)}
+.nav-links a:hover{color:#c85e4b}
+.btn-primary{background:#e96f59;color:#fff}
+.btn-primary:hover{background:#cf5946}
+.hero-art:before{background-image:radial-gradient(rgba(224,137,104,.28) 1.6px,transparent 1.6px)}
+.tag-card,.cart-summary,.sibni-form{background:rgba(255,255,255,.72)}
+.tag-card:hover{border-color:#e99a84}
+.product-detail .art-big{background:linear-gradient(145deg,rgba(255,232,220,.8),rgba(255,247,215,.8))}
+.section .wrap,.section-tight .wrap{position:relative}
+.product-group{position:relative}
+.product-group::before{content:"";display:block;height:2px;width:100%;margin:10px 0 26px;background:linear-gradient(90deg,transparent,#f0a18c 18%,#f5cf78 52%,transparent 100%);opacity:.7}
+.photo-gallery{display:grid;gap:14px}
+.photo-gallery img{width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:14px;background:rgba(255,255,255,.65);border:1px solid var(--line);padding:12px}
+.photo-gallery .gallery-caption{font-size:.82rem;color:var(--text-dim);margin:0}
+.card-photo{width:100%;height:100%;object-fit:contain;border-radius:8px}
+
+/* Product photos replace the generic illustration whenever a custom image exists. */
+.art-big.has-product-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.product-hero-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: inherit;
+}
