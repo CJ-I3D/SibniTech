@@ -40,6 +40,15 @@
 
 <div id="options"></div>
 
+<div class="product-option-group" id="symbol-options">
+  <strong>Choose your tag design</strong>
+  <div class="product-options" role="group" aria-label="Tag design">
+    <button type="button" class="product-option selected" data-symbol="text" aria-pressed="true"><span>Text version — “HELP”</span></button>
+    <button type="button" class="product-option" data-symbol="symbol" aria-pressed="false"><span>Symbol version — exclamation mark in triangle</span></button>
+  </div>
+  <p class="option-help">Photos of both versions are shown with the product.</p>
+</div>
+
 <div class="product-option-group" id="customisation-options">
   <strong>Choose your colour combination</strong>
   <div id="colour-options" class="colour-combo-options" role="group" aria-label="Preferred colour combination"></div>
@@ -96,6 +105,7 @@ const mountEl=document.getElementById("mount");
 const dimensionsEl=document.getElementById("dimensions");
 const colourOptionsEl=document.getElementById("colour-options");
 const customisationEl=document.getElementById("customisation-options");
+const symbolOptionsEl=document.getElementById("symbol-options");
 const deliveryNote=document.getElementById("delivery-note");
 document.title=product.name+" — Sibni";
 nameEl.textContent=product.name;
@@ -110,9 +120,11 @@ let selected=product.options[0];
 let selectedColour=COLOUR_OPTIONS[0].id;
 let selectedColourLabel=COLOUR_OPTIONS[0].label;
 let selectedUrgency="standard";
+let selectedSymbol="text";
 function renderCustomisation(){
   if(catalogId === "custom"){
     customisationEl.style.display="none";
+    symbolOptionsEl.style.display="none";
     return;
   }
   const colourOptions=product.colourOptions || COLOUR_OPTIONS;
@@ -133,6 +145,10 @@ function renderCustomisation(){
     selectedUrgency=btn.dataset.urgency;
     customisationEl.querySelectorAll("[data-urgency]").forEach(b=>b.classList.toggle("selected",b===btn));
     updateDeliveryNote();
+  }));
+  symbolOptionsEl.querySelectorAll("[data-symbol]").forEach(btn=>btn.addEventListener("click",()=>{
+    selectedSymbol=btn.dataset.symbol;
+    symbolOptionsEl.querySelectorAll("[data-symbol]").forEach(b=>{b.classList.toggle("selected",b===btn);b.setAttribute("aria-pressed",b===btn?"true":"false")});
   }));
   updateDeliveryNote();
 }
@@ -182,7 +198,7 @@ if(qtyInput && addBtn){
   document.getElementById("qty-minus").addEventListener("click",()=>qtyInput.value=Math.max(1,parseInt(qtyInput.value||"1")-1));
   document.getElementById("qty-plus").addEventListener("click",()=>qtyInput.value=parseInt(qtyInput.value||"1")+1);
   addBtn.addEventListener("click",()=>{
-    addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")),{colour:selectedColour,colourLabel:selectedColourLabel,urgency:selectedUrgency});
+    addToCart(selected.id,Math.max(1,parseInt(qtyInput.value||"1")),{colour:selectedColour,colourLabel:selectedColourLabel,urgency:selectedUrgency,symbol:selectedSymbol,symbolLabel:selectedSymbol==="text"?"Text version — HELP":"Symbol version — exclamation mark in triangle"});
     const original=addBtn.textContent;
     addBtn.textContent="Added"; setTimeout(()=>addBtn.textContent=original,1200);
   });

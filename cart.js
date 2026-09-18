@@ -14,10 +14,10 @@ function getCart(){
   return [];
 }
 function saveCart(items){try{localStorage.setItem(CART_KEY,JSON.stringify(items))}catch(e){}updateCartBadge()}
-function makeCartKey(id,options){return id+"::"+(options?.colour||options?.colourLabel||"No preference").toLowerCase().replace(/[^a-z0-9]+/g,"-")+"::"+(options?.urgency||"standard")}
+function makeCartKey(id,options){return id+"::"+(options?.colour||options?.colourLabel||"No preference").toLowerCase().replace(/[^a-z0-9]+/g,"-")+"::"+(options?.urgency||"standard")+"::"+(options?.symbol||"text")}
 function addToCart(id,qty,options={}){
   qty=Math.max(1,qty||1);
-  const normalized={colour:options.colour||"no-preference",colourLabel:options.colourLabel||options.colour||"No preference",urgency:options.urgency||"standard"};
+  const normalized={colour:options.colour||"no-preference",colourLabel:options.colourLabel||options.colour||"No preference",urgency:options.urgency||"standard",symbol:options.symbol||"text",symbolLabel:options.symbolLabel||"Text version — HELP"};
   const items=getCart(),key=makeCartKey(id,normalized);
   const existing=items.find(i=>i.key===key);
   if(existing) existing.qty+=qty;

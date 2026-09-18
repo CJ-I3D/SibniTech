@@ -14,13 +14,27 @@ const COLOUR_OPTIONS = [
   { id: "random", label: "Random colour combination — 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" }
 ];
 
+const SWATCH_CLASS = { red: "swatch-red", black: "swatch-black", white: "swatch-white", green: "swatch-green", beige: "swatch-cream", gold: "swatch-cream", grey: "swatch-steel", "dark blue": "swatch-blue", transparent: "swatch-translucent" };
+function makeColours(pairs) {
+  const options = pairs.map(pair => {
+    const parts = pair.split(" & ");
+    const body = parts[0];
+    const text = parts[1] || parts[0];
+    const id = pair.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    return { id, label: parts.length > 1 ? `${body} body & ${text} text` : body, body, text, bodyClass: SWATCH_CLASS[body.toLowerCase()] || "swatch-cream", textClass: SWATCH_CLASS[text.toLowerCase()] || "swatch-cream" };
+  });
+  options.push({ id: "random", label: "Random colour combination — 10% off", body: "Random", text: "Random", bodyClass: "swatch-random", textClass: "swatch-random" });
+  return options;
+}
+
 const CATALOG = {
   "large-square": {
     name: "Large Square Tag",
     slug: "large-square",
     group: "carry",
     tagline: "Large square design.",
-    description: 'A larger square tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Green & White"]),
+    description: 'A spacious, easy-to-see square tag designed for everyday carry. Its larger surface makes it practical for clear identification, while the durable 3D-printed form is suitable for bags, belongings and personal safety use.',
     icon: "large-square",
     tint: "blue",
     badge: "Square",
@@ -35,7 +49,8 @@ const CATALOG = {
     slug: "small-square",
     group: "carry",
     tagline: "Small square design.",
-    description: 'A compact square tag for keys, bags and everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Green & White"]),
+    description: 'A compact square tag that is easy to carry on keys, bags and everyday items. Its smaller profile is designed for people who want a practical safety tag without adding much bulk.',
     icon: "small-square",
     tint: "green",
     badge: "Square",
@@ -50,7 +65,8 @@ const CATALOG = {
     slug: "large-round",
     group: "carry",
     tagline: "Large round design.",
-    description: 'A larger round tag with plenty of space while staying easy to carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Green & White"]),
+    description: 'A larger rounded tag combining a generous identification area with a comfortable, easy-to-carry shape. Ideal for bags, personal belongings and everyday safety applications.',
     icon: "large-round",
     tint: "amber",
     badge: "Round",
@@ -65,7 +81,8 @@ const CATALOG = {
     slug: "small-round",
     group: "carry",
     tagline: "Small round design.",
-    description: 'A compact round tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Green & White"]),
+    description: 'A compact rounded tag for discreet everyday carry. Its small footprint makes it suitable for keys, bags and other belongings where space is limited.',
     icon: "small-round",
     tint: "violet",
     badge: "Round",
@@ -80,7 +97,8 @@ const CATALOG = {
     slug: "lace-car",
     group: "lace",
     tagline: 'Car design for shoelaces or velcro.',
-    description: 'A car-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Green & Beige"]),
+    description: 'A playful car-shaped tag designed for your own shoelaces or Velcro. It offers a low-profile way to carry a personal safety tag without needing a keychain or lanyard.',
     icon: "car",
     tint: "blue",
     badge: "Shoelace / velcro",
@@ -94,7 +112,8 @@ const CATALOG = {
     slug: "lace-duck",
     group: "lace",
     tagline: 'Duck design for shoelaces or velcro.',
-    description: 'A duck-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Gold & White", "Black & White", "Beige & Black"]),
+    description: 'A friendly duck-shaped tag designed for your own shoelaces or Velcro. A fun, lightweight option for children and anyone who prefers a character-style design.',
     icon: "duck",
     tint: "amber",
     badge: "Shoelace / velcro",
@@ -108,7 +127,8 @@ const CATALOG = {
     slug: "lace-rocket",
     group: "lace",
     tagline: 'Rocket design for shoelaces or velcro.',
-    description: 'A rocket-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Grey & Dark Blue", "Transparent & Dark Blue"]),
+    description: 'A rocket-shaped tag designed for your own shoelaces or Velcro. Its playful design is ideal for children, space fans and low-profile everyday wear.',
     icon: "rocket",
     tint: "violet",
     badge: "Shoelace / velcro",
@@ -122,7 +142,8 @@ const CATALOG = {
     slug: "lace-bowtie",
     group: "lace",
     tagline: 'Bowtie design for shoelaces or velcro.',
-    description: 'A bowtie-shaped tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Gold & White", "Black & White", "Red & White"]),
+    description: 'A bowtie-shaped tag designed for your own shoelaces or Velcro. Its distinctive shape adds personality while keeping the tag close to the wearer.',
     icon: "bowtie",
     tint: "green",
     badge: "Shoelace / velcro",
@@ -136,7 +157,8 @@ const CATALOG = {
     slug: "lace-rectangle",
     group: "lace",
     tagline: 'Simple rectangle design for shoelaces or velcro.',
-    description: 'A simple rectangular tag designed to attach to shoelaces or velcro. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Transparent & Dark Blue"]),
+    description: 'A clean, simple rectangular tag designed for your own shoelaces or Velcro. Its understated shape is suitable when you want a practical option that blends into everyday footwear or clothing.',
     icon: "rectangle",
     tint: "blue",
     badge: "Shoelace / velcro",
@@ -150,7 +172,8 @@ const CATALOG = {
     slug: "flower",
     group: "carry",
     tagline: "Flower-shaped design.",
-    description: 'A flower-shaped tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Beige & Black", "Green & White"]),
+    description: 'A distinctive flower-shaped tag that combines a friendly design with practical everyday safety. A thoughtful option for children, gifts, bags or personal belongings.',
     icon: "flower",
     tint: "violet",
     badge: "Flower",
@@ -165,7 +188,8 @@ const CATALOG = {
     slug: "bear",
     group: "carry",
     tagline: "Bear-shaped design.",
-    description: 'A bear-shaped tag for everyday carry. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Beige", "Red & Black", "Black", "Red & White", "Gold", "Black & White"]),
+    description: 'A playful bear-shaped tag designed for everyday use. Its recognisable shape makes it especially suitable for children, gifts, bags and personal belongings.',
     icon: "bear",
     tint: "amber",
     badge: "Animal",
@@ -180,7 +204,8 @@ const CATALOG = {
     slug: "car",
     group: "carry",
     tagline: "Car-shaped design.",
-    description: 'A car-shaped tag for keys, bags and other everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Grey & Dark Blue"]),
+    description: 'A detailed car-shaped tag for people who enjoy automotive designs. It is suitable for attaching to keys, bags and other everyday belongings while providing a personal safety function.',
     icon: "car",
     tint: "blue",
     badge: "Shape",
@@ -195,7 +220,8 @@ const CATALOG = {
     slug: "plane",
     group: "carry",
     tagline: "Plane-shaped design.",
-    description: 'A plane-shaped tag for keys, bags and other everyday items. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Transparent & Dark Blue"]),
+    description: 'A plane-shaped tag for travellers, aviation fans and everyday carry. Its distinctive silhouette works well on bags, keys and other belongings.',
     icon: "plane",
     tint: "blue",
     badge: "Shape",
@@ -210,11 +236,12 @@ const CATALOG = {
     slug: "business-card",
     group: "ultra-thin",
     tagline: "An ultra-thin wallet-friendly format.",
-    description: 'An ultra-thin tag designed to slip into a wallet or card holder. The tag is marked "HELP. SCAN NFC", as shown in the product photos.',
+    colourOptions: makeColours(["Red & White", "Black & White", "Green & White"]),
+    description: 'An ultra-thin card-format tag designed to fit into a wallet, purse, card holder or pocket. Its slim 2 mm profile makes it a discreet option for everyday personal safety.',
     icon: "business-card",
     tint: "green",
     badge: "Ultra thin",
-    dimensions: "85 × 55 × 4 mm",
+    dimensions: "90 × 50 × 2 mm",
     options: [
       { id: "business-card", label: "Standard", price: 9.99, mount: "Thin card format" }
     ]
