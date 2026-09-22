@@ -52,24 +52,22 @@
 <div class="product-option-group" id="customisation-options">
   <strong>Choose your colour combination</strong>
   <div id="colour-options" class="colour-combo-options" role="group" aria-label="Preferred colour combination"></div>
-  <p class="option-help">Choose the colour combination you prefer. Your choice is a preference for the order - urgent orders are fulfilled from what is currently in stock.</p>
-
   <strong style="margin-top:20px;">How soon do you need it?</strong>
   <div class="urgency-options" role="group" aria-label="Delivery urgency">
-    <button type="button" class="urgency-option selected" data-urgency="standard"><span>Not urgent</span><small>We’ll print your chosen colour combination and send your order within 3 weeks.</small></button>
-    <button type="button" class="urgency-option" data-urgency="urgent"><span>Urgent - from stock</span><small>We’ll send the closest available colour combination from current stock.</small></button>
+    <button type="button" class="urgency-option selected" data-urgency="standard"><span>Not urgent</span></button>
+    <button type="button" class="urgency-option" data-urgency="urgent"><span>Urgent - from stock</span></button>
   </div>
-  <div class="delivery-note" id="delivery-note" aria-live="polite"></div>
+  <div class="product-terms" id="delivery-note" aria-live="polite"></div>
 </div>
 
 <ul class="spec-list">
-<li><span>Material</span><span>3D-printed PETG</span></li>
+<li><span>Material</span><span>3D-printed PETG + NFC inlay</span></li>
 <li><span>Dimensions</span><span id="dimensions"></span></li>
-<li><span>Carabiner</span><span>35 × 62 × 8 mm · random colour</span></li>
+<li id="carabiner-dimensions-row" hidden><span>Carabiner dimensions</span><span>60 × 35 × 8 mm</span></li>
 <li><span>Attachment</span><span id="mount"></span></li>
 </ul>
-<p class="dimension-note">Dimensions are approximate and may have a small margin of error due to the 3D-printing process. Carabiners are always supplied in random colours.</p>
-<p class="dimension-note">The tag body and carabiner are 3D-printed plastic. Please avoid leaving your tag in direct sunlight or in a hot car for long periods - prolonged heat exposure can warp or discolour the shell.</p>
+<p class="dimension-note">Dimensions shown are for the tag body only and exclude the carabiner. Tag dimensions are approximate and may have a small margin of error due to the 3D-printing process. Carabiners are supplied in random colours.</p>
+<p class="dimension-note">The tag body and carabiner are 3D-printed plastic, with an NFC inlay inside the tag body. Please avoid leaving your tag in direct sunlight or in a hot car for long periods - prolonged heat exposure can warp or discolour the shell.</p>
 
 <div class="qty-row" id="purchase-row">
 <div class="qty-control"><button type="button" id="qty-minus">–</button><input type="text" id="qty-input" value="1" inputmode="numeric" aria-label="Quantity"><button type="button" id="qty-plus">+</button></div>
@@ -83,7 +81,7 @@
 </div></div></section>
 
 <footer class="footer"><div class="wrap">
-<div><div class="wordmark">Sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself - nothing is stored by us.</p></div>
+<div><div class="wordmark">Sibni<span class="dot"></span></div><p style="margin-top:14px; max-width:32ch;">Sibni is Maltese for "find me." Emergency-ID tags you set up yourself. Nothing is stored by us.</p></div>
 <div><h4>Shop</h4><ul><li><a href="products.html">All tags</a></li><li><a href="contact.html">Custom tag</a></li></ul></div>
 <div><h4>Learn</h4><ul><li><a href="how-to.html">How it works</a></li><li><a href="shipping.html">Shipping &amp; Pickup</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
 <div><h4>Company</h4><ul><li><a href="contact.html">Contact / custom orders</a></li></ul></div>
@@ -104,6 +102,7 @@ const artEl=document.getElementById("product-art");
 const galleryEl=document.getElementById("product-gallery");
 const optionsEl=document.getElementById("options");
 const mountEl=document.getElementById("mount");
+const carabinerDimensionsRow=document.getElementById("carabiner-dimensions-row");
 const dimensionsEl=document.getElementById("dimensions");
 const colourOptionsEl=document.getElementById("colour-options");
 const customisationEl=document.getElementById("customisation-options");
@@ -167,8 +166,8 @@ function renderCustomisation(){
   updateDeliveryNote();
 }
 function updateDeliveryNote(){
-  if(selectedUrgency === "urgent") deliveryNote.innerHTML='<strong>Urgent - from stock:</strong> we’ll send a colour combination that is currently in stock. It may be your preferred combination or a different one. If you order more than one tag, some may be in your preferred combination while others may be different.';
-  else deliveryNote.innerHTML='<strong>Not urgent:</strong> we’ll print your chosen colour combination and <strong>send your order within 3 weeks</strong>.';
+  if(selectedUrgency === "urgent") deliveryNote.innerHTML='<strong>Colour & urgency:</strong> Your colour choice is a preference, not a guarantee. Urgent orders are fulfilled from available stock and may use a different colour combination. If you are not in a hurry, we will print your chosen combination and send your order within 3 weeks.';
+  else deliveryNote.innerHTML='<strong>Colour & urgency:</strong> Your colour choice is a preference for the order. Not-urgent orders are printed in your chosen combination and sent within 3 weeks; urgent orders are fulfilled from available stock and may use a different combination.';
 }
 
 function renderOptions(){
@@ -198,6 +197,7 @@ function update(){
   priceEl.textContent=product.priceOnRequest ? "P.O.R." : money(price) + (selectedColour === "random" ? " - 10% off" : "");
   mountEl.textContent=selected.mount;
   dimensionsEl.textContent=product.dimensions || "On request";
+  if(carabinerDimensionsRow) carabinerDimensionsRow.hidden = !/carabiner/i.test(selected.mount || selected.label || "");
 }
 renderOptions(); renderCustomisation(); update();
 
