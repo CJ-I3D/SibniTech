@@ -62,7 +62,7 @@
 
 <ul class="spec-list">
 <li><span>Material</span><span>3D-printed PETG + NFC inlay</span></li>
-<li><span>Dimensions</span><span id="dimensions"></span></li>
+<li><span id="dimensions-label">Dimensions</span><span id="dimensions"></span></li>
 <li id="carabiner-dimensions-row" hidden><span>Carabiner dimensions</span><span>60 × 35 × 8 mm</span></li>
 <li><span>Attachment</span><span id="mount"></span></li>
 </ul>
@@ -104,6 +104,7 @@ const optionsEl=document.getElementById("options");
 const mountEl=document.getElementById("mount");
 const carabinerDimensionsRow=document.getElementById("carabiner-dimensions-row");
 const dimensionsEl=document.getElementById("dimensions");
+const dimensionsLabelEl=document.getElementById("dimensions-label");
 const colourOptionsEl=document.getElementById("colour-options");
 const customisationEl=document.getElementById("customisation-options");
 const symbolOptionsEl=document.getElementById("symbol-options");
@@ -197,6 +198,8 @@ function update(){
   priceEl.textContent=product.priceOnRequest ? "P.O.R." : money(price) + (selectedColour === "random" ? " - 10% off" : "");
   mountEl.textContent=selected.mount;
   dimensionsEl.textContent=product.dimensions || "On request";
+  const hasCarabinerOption = Array.isArray(product.options) && product.options.some(o=>/carabiner/i.test((o.mount||"")+" "+(o.label||"")));
+  if(dimensionsLabelEl) dimensionsLabelEl.textContent = hasCarabinerOption ? "Dimensions (excluding carabiner)" : "Dimensions";
   if(carabinerDimensionsRow) carabinerDimensionsRow.hidden = !/carabiner/i.test(selected.mount || selected.label || "");
 }
 renderOptions(); renderCustomisation(); update();
